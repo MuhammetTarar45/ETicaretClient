@@ -1,12 +1,27 @@
-<H5>SİDEBAR!</H5>
+<!-- <ul>
+    <li><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+            routerLink="/admin"><button>Dashboard</button></a></li>
+    <li><a routerLinkActive="active-link" routerLink="customers"><button>Customers</button></a></li>
+    <li><a routerLinkActive="active-link" routerLink="products"><button>Products</button></a></li>
+    <li><a routerLinkActive="active-link" routerLink="orders"><button>Orders</button></a></li>
+    <li><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link" routerLink=""><button>Siteyi
+                Gör</button></a></li>
+                
+</ul> -->
 
-<br>
+<mat-list role="list">
+        <mat-list-item role="listitem"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+                        routerLink="/admin">Dashboard</a></mat-list-item>
 
+        <mat-list-item role="listitem"><a routerLinkActive="active-link"
+                        routerLink="customers">Customers</a></mat-list-item>
 
-<ul>
-    <li><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link" routerLink="/admin">Dashboard</a></li>
-    <li><a routerLinkActive="active-link" routerLink="customers">Customers</a></li>
-    <li><a routerLinkActive="active-link"  routerLink="products">Products</a></li>
-    <li><a routerLinkActive="active-link" routerLink="orders">Orders</a></li>
-    <li><a [routerLinkActiveOptions]="{exact:true}"  routerLinkActive="active-link" routerLink="">Siteyi Gör</a></li>
-</ul>
+        <mat-list-item role="listitem"><a routerLinkActive="active-link"
+                        routerLink="products">Products</a></mat-list-item>
+
+        <mat-list-item role="listitem"><a routerLinkActive="active-link" routerLink="orders">Orders</a></mat-list-item>
+        
+        <mat-list-item role="listitem"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+                        routerLink="">Siteyi
+                        Gör</a></mat-list-item>
+</mat-list>

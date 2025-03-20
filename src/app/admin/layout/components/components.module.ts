@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
-import { RouterLink, RouterModule } from '@angular/router';
-
+import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { RouterLink, RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatListModule
   ],
   exports: [
     HeaderComponent,

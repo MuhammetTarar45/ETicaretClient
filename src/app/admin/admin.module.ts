@@ -7,12 +7,13 @@ import { ComponentsModule } from './components/components.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     LayoutModule,
     ComponentsModule
   ],
-  exports:[LayoutComponent]
+  exports: [LayoutComponent]
 })
 export class AdminModule { }

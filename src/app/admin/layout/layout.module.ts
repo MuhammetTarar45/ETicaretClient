@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { ComponentsModule } from './components/components.module';
 import { RouterOutlet } from '@angular/router';
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -13,8 +12,9 @@ import { RouterOutlet } from '@angular/router';
   imports: [
     CommonModule,
     ComponentsModule,
-    RouterOutlet
+    RouterOutlet,
+    MatSidenavModule,
   ],
-  exports:[LayoutComponent]
+  exports: [LayoutComponent]
 })
 export class LayoutModule { }

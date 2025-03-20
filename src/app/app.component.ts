@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'ETicaretClient';
+  // ngOnInit() {
+  //   $(document).ready(() => {
+  //     alert("Hi");
+  //   })
+  // }
 }
