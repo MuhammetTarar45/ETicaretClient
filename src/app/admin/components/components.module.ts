@@ -12,7 +12,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CommonModule,
     ProductsModule,
     CustomersModule,
-    DashboardModule
-  ]
+    DashboardModule,
+  ],
 })
 export class ComponentsModule { }

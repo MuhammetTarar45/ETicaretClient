@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BaseComponent, SpinnerNameType } from '../../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-error',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './error.component.html',
   styleUrl: './error.component.scss'
 })
-export class ErrorComponent {
-
+export class ErrorComponent extends BaseComponent {
+  constructor(spinnerService: NgxSpinnerService) {
+    super(spinnerService)
+  }
+  ngOnInit() {
+    this.showSpinner(SpinnerNameType.Routing);
+  }
 }

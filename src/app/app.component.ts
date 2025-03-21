@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
+import { NgxSpinnerService, Spinner } from 'ngx-spinner';
 
 
 @Component({
@@ -9,9 +10,8 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from './servic
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(private toastrService: CustomToastrService) {
-  }
-  ngOnInit() {
-    this.toastrService.message("Nasılsınız", "Selamlar", { position: ToastrPosition.BottomCenter, messageType: ToastrMessageType.Info });
+  constructor(private toastrService: CustomToastrService, private spinner: NgxSpinnerService) {
+
+
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BaseComponent, SpinnerNameType } from '../../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
-
+export class HomeComponent extends BaseComponent {
+  constructor(spinnerService: NgxSpinnerService) {
+    super(spinnerService)
+  }
+  ngOnInit() {
+    this.showSpinner(SpinnerNameType.Routing);
+  }
 }
