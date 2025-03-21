@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertifyOptions, AlertifyService, MessageType, Position } from '../../services/admin/alertify.service';
+import { AlertifyService, AlertifyMessageType, AlertifyPosition } from '../../services/admin/alertify.service';
 
 
 @Component({
@@ -13,6 +13,6 @@ export class LayoutComponent {
 
   }
   ngOnInit() {
-    this.alertify.message("Hello Man", { delay: 3, messageType: MessageType.Success, position: Position.TopLeft });
+    this.alertify.message("Hello Man", { delay: 3, messageType: AlertifyMessageType.Success, position: AlertifyPosition.TopLeft });
   }
 }

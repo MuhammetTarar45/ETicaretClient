@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 
-declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,9 @@ declare var $: any;
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  // ngOnInit() {
-  //   $(document).ready(() => {
-  //     alert("Hi");
-  //   })
-  // }
+  constructor(private toastrService: CustomToastrService) {
+  }
+  ngOnInit() {
+    this.toastrService.message("Nasılsınız", "Selamlar", { position: ToastrPosition.BottomCenter, messageType: ToastrMessageType.Info });
+  }
 }

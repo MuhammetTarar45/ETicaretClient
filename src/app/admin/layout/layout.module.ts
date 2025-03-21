@@ -5,7 +5,6 @@ import { ComponentsModule } from './components/components.module';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-declare var alertify: any;
 
 @NgModule({
   declarations: [
