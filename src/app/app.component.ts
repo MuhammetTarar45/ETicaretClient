@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { NgxSpinnerService, Spinner } from 'ngx-spinner';
 
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -15,3 +16,6 @@ export class AppComponent {
 
   }
 }
+
+//  $.get("https://localhost:5001/api/Products").subscribe(datas => console.log(datas));
+$.get("https://localhost:5001/api/Products", datas => datas.forEach(data => console.log(data.name)));
