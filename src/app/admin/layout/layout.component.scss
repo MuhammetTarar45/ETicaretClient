@@ -13,35 +13,33 @@
 
  .admin-container {
      max-width: 100%;
-     min-height: 300px;
-     margin: 10px;
+     //min-height: 30px;
      border: 1px solid #555;
      background: #eee;
-     overflow-x: hidden;
+     //overflow-x: hidden;
      background-color: rgb(51, 5, 43);
  }
 
- .sidebar {
+ .admin-sidebar {
      background-color: aqua;
-     height: auto;
-     /* İçeriğe göre uzamasını sağlar */
-     display: flex;
-     flex-direction: column;
-     flex-grow: 1;
-     /* İçeriğin boyutuna göre büyümesini sağlar */
+     max-width: 30%;
+     //  height: auto;
+     //  display: flex;
+     //  flex-direction: column;
+     //  flex-grow: 1;
  }
 
- @media screen and (max-width:600px) {
-     .sidebar {
-         max-width: 70px;
-     }
- }
+ //  @media screen and (max-width:600px) {
+ //      .sidebar {
+ //          max-width: 70px;
+ //      }
+ //  }
 
- @media screen and (max-width:900px) {
-     .sidebar {
-         max-width: 170px;
-     }
- }
+ //  @media screen and (max-width:900px) {
+ //      .sidebar {
+ //          max-width: 170px;
+ //      }
+ //  }
 
  a {
      text-decoration: none;

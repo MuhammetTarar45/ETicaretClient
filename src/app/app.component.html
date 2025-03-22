@@ -1,28 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-  <a class="navbar-brand" routerLink="">Mini E-Ticaret</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar bg-primary navbar-expand-sm navbar-dark">
+  <div class="container mx-5">
+    <a class="navbar-brand" routerLink="">Mini E-Ticaret</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="products">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="baskets">Basket</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin">Admin</a>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-5">
+        <li class="nav-item active">
+          <a class="navbar-brand" routerLink="">Home</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="navbar-brand" routerLink="products">Products</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="navbar-brand" routerLink="baskets">Basket</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="navbar-brand" routerLink="/admin">Admin</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8"><router-outlet></router-outlet></div>
+  <div class="col-md-2"></div>
+</div>
+
 
 <ngx-spinner name="routing" color="pink" bdColor="rgb(160, 46, 213)" type="square-jelly-box">
   <p style="font-size: 20px; color: white">Loading...</p>

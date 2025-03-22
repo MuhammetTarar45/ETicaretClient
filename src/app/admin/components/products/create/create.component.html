@@ -1,0 +1,19 @@
+<div class="create-form">
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput #txtName>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Stock</mat-label>
+        <input matInput min="0" value="0" #txtStock>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput min="0" value="0" #txtPrice>
+    </mat-form-field>
+
+    <br>
+    <button (click)="createWButton(txtName,txtStock,txtPrice)" mat-flat-button>Create</button>
+</div>
