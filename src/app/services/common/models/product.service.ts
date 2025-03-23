@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { Create_Product } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
+import { List_Product } from '../../../contracts/list_products';
+import { error } from 'jquery';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class ProductService {
       controller: 'products'
     }, product).subscribe({
       next: result => {
-        if (successCallBack) successCallBack(result); // Başarılı cevap varsa callback'i çağır
+        if (successCallBack) successCallBack(result);
       },
       error: (errorResponse: HttpErrorResponse) => {
         let _errors: Array<{ key: string, value: Array<string> }> = errorResponse.error;
@@ -28,5 +31,34 @@ export class ProductService {
         errorCallBack(message);
       }
     });
+
+
+  }
+  read(
+    page: number = 0,
+    size: number = 5,
+    successCallBack?: (response: { totalCount: number; products: List_Product[] }) => void,
+    errorCallBack?: (errorMessage: string) => void
+  ) {
+    this.httpClientService
+      .get<{ totalCount: number; products: List_Product[] }>({
+        controller: "products",
+        queryStrings: `page=${page}&size=${size}`
+      })
+      .subscribe({
+        next: (value: { totalCount: number; products: List_Product[] }) => {
+          successCallBack({
+            totalCount: value.totalCount,
+            products: value.products,
+          });
+        },
+        error: (error: HttpErrorResponse): void => {
+
+          errorCallBack(error.message);
+        },
+        complete: (): void => {
+          console.log("İşlem Tamam!");
+        },
+      });
   }
 }

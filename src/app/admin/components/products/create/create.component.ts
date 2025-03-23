@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { Create_Product } from '../../../../contracts/create_product';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,18 +16,17 @@ export class CreateComponent extends BaseComponent {
   constructor(spinner: NgxSpinnerService, private productService: ProductService, private alertify: AlertifyService) {
     super(spinner);
   }
+
+  @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+
+
+
   createWButton(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerNameType.Work);
     const create_product: Create_Product = new Create_Product();
     create_product.name = name.value;
     create_product.stock = parseInt(stock.value);
     create_product.price = parseInt(price.value);
-
-    //Bunlar Reactive Form olmadan örnek ve Client Tabanlı Sunucuyu yormadan ve böyle yapınca best practies değil!
-    if (!(name.value.length >= 2)) {
-      alert("NAME'NİN DEĞERİ 2 DEN BÜYÜK OLMALI");
-      return; //Burada keser ve aşağıya inmez!
-    }
 
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerNameType.Work),
@@ -36,6 +35,7 @@ export class CreateComponent extends BaseComponent {
           messageType: AlertifyMessageType.Message,
           position: AlertifyPosition.TopLeft
         });
+      this.createdProduct.emit(create_product);
     }, error => { // Hata olursa
       this.hideSpinner(SpinnerNameType.Work);
       this.alertify.message(error, { messageType: AlertifyMessageType.Error, delay: 10 });
