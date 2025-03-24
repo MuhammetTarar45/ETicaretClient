@@ -14,9 +14,9 @@ export class ProductsComponent extends BaseComponent {
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService);
   }
-  ngOnInit() {
-    this.showSpinner(SpinnerNameType.Routing);
-  }
+  // ngOnInit() {
+  //   this.showSpinner(SpinnerNameType.Routing);
+  // }
   @ViewChild(ListComponent) listComponents: ListComponent;
 
   createdProduct(create_product: Create_Product) {

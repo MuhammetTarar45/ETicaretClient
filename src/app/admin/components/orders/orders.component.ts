@@ -12,7 +12,7 @@ export class OrdersComponent extends BaseComponent {
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService);
   }
-  ngOnInit() {
-    this.showSpinner(SpinnerNameType.Routing);
-  }
+  // ngOnInit() {
+  //   this.showSpinner(SpinnerNameType.Routing);
+  // }
 }

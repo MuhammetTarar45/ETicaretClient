@@ -6,6 +6,7 @@ import { ProductService } from '../../../../services/common/models/product.servi
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyMessageType, AlertifyService } from '../../../../services/admin/alertify.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -17,17 +18,22 @@ export class ListComponent extends BaseComponent {
   constructor(private productService: ProductService, spinnerService: NgxSpinnerService, private alertify: AlertifyService) {
     super(spinnerService)
   }
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'edit', 'delete'];
 
   dataSource: MatTableDataSource<List_Product>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-
 
   ngAfterViewInit() {
     this.getProducts();
   }
 
+  // delete(id: string, mouseEvent: MouseEvent) {
+  //   const target = mouseEvent.target as HTMLElement;
+  //   console.log(target);
+  //   const item = target.closest('tr');
+  //   item.remove();
+  //   alert(id);
+  // }
   async pageChanged() {
     await this.getProducts();
   }

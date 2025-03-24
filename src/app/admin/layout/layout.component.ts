@@ -15,10 +15,8 @@ export class LayoutComponent {
   }
 
   ngOnInit() {
-    this.spinner.show("routing");
+    //this.spinner.show("routing");
     this.alertify.message("Hello Man", { delay: 3, messageType: AlertifyMessageType.Success, position: AlertifyPosition.TopLeft });
-    setTimeout(() => {
-      this.spinner.hide("routing")
-    }, 2000);
+    
   }
 }

@@ -31,8 +31,7 @@ export class ProductService {
         errorCallBack(message);
       }
     });
-
-
+    
   }
   read(
     page: number = 0,
@@ -53,12 +52,26 @@ export class ProductService {
           });
         },
         error: (error: HttpErrorResponse): void => {
-
           errorCallBack(error.message);
         },
         complete: (): void => {
           console.log("İşlem Tamam!");
         },
       });
+  }
+  delete(id: string) {
+    this.httpClientService.delete({ controller: "products" }, id).subscribe(
+      {
+        next(value) {
+          console.log("silindi");
+        },
+        error(err) {
+
+        },
+        complete() {
+          console.log('Gorev Tamam');
+        },
+      }
+    );
   }
 }
