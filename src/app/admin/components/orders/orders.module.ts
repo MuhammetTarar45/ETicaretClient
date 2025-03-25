@@ -3,17 +3,16 @@ import { CommonModule } from '@angular/common';
 import { OrdersComponent } from './orders.component';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
-    OrdersComponent
+    OrdersComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {path:"",component:OrdersComponent}
-    ])
+    ]),
+    
   ],
   exports:[]
 })

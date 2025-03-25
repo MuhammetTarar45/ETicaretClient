@@ -40,11 +40,11 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell [incomingId]="element.id" *matCellDef="let element" appDelete (callbackHilmiDeleteSonrasi)="getProducts()">
+            <td mat-cell [incomingId]="element.id" *matCellDef="let element" appDelete
+                (callbackHilmiDeleteSonrasi)="getProducts()">
                 <!-- <img
                     src="/images/6827790_delete_minus_multimedia_remove_ui_icon (2).png" alt="Yok"
                     style="cursor: pointer;" (click)="delete(element.id,$event)"> -->
-
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

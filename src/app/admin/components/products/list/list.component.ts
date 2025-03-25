@@ -6,7 +6,7 @@ import { ProductService } from '../../../../services/common/models/product.servi
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyMessageType, AlertifyService } from '../../../../services/admin/alertify.service';
-import { interval } from 'rxjs';
+
 
 @Component({
   selector: 'app-list',

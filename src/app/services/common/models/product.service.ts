@@ -3,8 +3,6 @@ import { HttpClientService } from '../http-client.service';
 import { Create_Product } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List_Product } from '../../../contracts/list_products';
-import { error } from 'jquery';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +29,7 @@ export class ProductService {
         errorCallBack(message);
       }
     });
-    
+
   }
   read(
     page: number = 0,
@@ -55,7 +53,6 @@ export class ProductService {
           errorCallBack(error.message);
         },
         complete: (): void => {
-          console.log("İşlem Tamam!");
         },
       });
   }
@@ -63,13 +60,11 @@ export class ProductService {
     this.httpClientService.delete({ controller: "products" }, id).subscribe(
       {
         next(value) {
-          console.log("silindi");
         },
         error(err) {
 
         },
         complete() {
-          console.log('Gorev Tamam');
         },
       }
     );
