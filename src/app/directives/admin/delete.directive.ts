@@ -5,6 +5,8 @@ import { SpinnerNameType } from '../../base/base.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogDeleteComponent } from '../../admin/dialogs/dialog-delete/dialog-delete.component';
+import { HttpClientService } from '../../services/common/http-client.service';
+import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../services/admin/alertify.service';
 declare var $: any;
 
 @Directive({
@@ -18,8 +20,9 @@ export class DeleteDirective {
 
   constructor(private elementRef: ElementRef<HTMLElement>, //elementRef html'deki işaretli directive'den geliyor.Yani td satırını ifade ediyor.
     private _rendered: Renderer2,
-    private productService: ProductService,
-    private spinner: NgxSpinnerService
+    private httpClientService: HttpClientService,
+    private spinner: NgxSpinnerService,
+    private alertify: AlertifyService
   ) {
 
 
@@ -30,17 +33,25 @@ export class DeleteDirective {
     _rendered.appendChild(elementRef.nativeElement, img);
   }
   readonly dialog = inject(MatDialog);
-
+  @Input() controllerInput: string;
   @Input() incomingId: string;
   @Output() callbackHilmiDeleteSonrasi: EventEmitter<any> = new EventEmitter();
   @HostListener("click", ["$event"])
   onClick(event: Event) {
+    debugger;
+    console.log(this.controllerInput);
     if (event.target === this.imgElement)
       this.openDialog('200ms', '200ms', () => {
         this.spinner.show(SpinnerNameType.Work);
-        this.productService.delete(this.incomingId);
-        const tr = this.elementRef.nativeElement.closest("tr");
-        $(tr).fadeOut(1200, () => this.callbackHilmiDeleteSonrasi.emit());
+        this.httpClientService.delete({ controller: this.controllerInput }, this.incomingId).subscribe(data => {
+          const tr = this.elementRef.nativeElement.closest("tr");
+          this.alertify.message("Ürün Başarıyla Silinmiştir.", {
+            delay: 4,
+            messageType: AlertifyMessageType.Success,
+            position: AlertifyPosition.TopRight
+          })
+          $(tr).fadeOut(1200, () => this.callbackHilmiDeleteSonrasi.emit());
+        });
       })
   }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, callBackDelete?: () => void): void {

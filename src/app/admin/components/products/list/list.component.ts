@@ -35,6 +35,7 @@ export class ListComponent extends BaseComponent {
   //   alert(id);
   // }
   async pageChanged() {
+
     await this.getProducts();
   }
   getProducts() {
@@ -43,8 +44,14 @@ export class ListComponent extends BaseComponent {
       this.paginator.pageIndex ?? 0,
       this.paginator.pageSize ?? 5,
       (response: { totalCount: number; products: List_Product[] }) => {
-        this.dataSource = new MatTableDataSource<List_Product>(response.products);
-        this.paginator.length = response.totalCount;
+        if (response.products.length === 0 && this.paginator.pageIndex > 0) {
+          // Eğer mevcut sayfada hiç veri kalmadıysa, bir önceki sayfaya git
+          this.paginator.previousPage();
+        }
+        else {
+          this.dataSource = new MatTableDataSource<List_Product>(response.products);
+          this.paginator.length = response  .totalCount;
+        }
         this.hideSpinner(SpinnerNameType.Work);
       },
       (errorMessage: string) => {
