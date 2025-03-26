@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { BaseComponent, SpinnerNameType } from '../../../base/base.component';
+import { Component, ViewChild } from '@angular/core';
+import { BaseComponent } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Create_Product } from '../../../contracts/create_product';
 import { ListComponent } from './list/list.component';
@@ -14,12 +14,9 @@ export class ProductsComponent extends BaseComponent {
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService);
   }
-  // ngOnInit() {
-  //   this.showSpinner(SpinnerNameType.Routing);
-  // }
   @ViewChild(ListComponent) listComponents: ListComponent;
 
-  createdProduct(create_product: Create_Product) {
+  lastProductList(productList: Create_Product) { //Burası List_Product Olmalı ama değer gönderirken Create_product gönderiyoruz List yapınca hata alıyoruz. En başta değer gönderirken de List gibi biçimlerde göndermeliyiz ama böyle kalsa da olur.
     this.listComponents.getProducts();
   }
 }
