@@ -1,7 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { HttpClientService } from '../common/http-client.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,10 +10,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './file-upload.component.scss'
 })
 export class FileUploadComponent {
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClientService: HttpClientService) {
 
   }
-  @Input() contentName: string;
+
+  @Input() optionals: Partial<FileOptionalParameters> = new FileOptionalParameters();
   public files: NgxFileDropEntry[] = [];
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -25,15 +26,12 @@ export class FileUploadComponent {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
 
-          console.log(droppedFile.relativePath, file);
-
-
-          const formData = new FormData()
-          formData.append('formFiles', file, file.name)
-          debugger;
-
-
-          this.httpClient.post('https://localhost:5001/api/products/uploadfile', formData)
+          const formData = new FormData();
+          formData.append('formFiles', file, file.name);
+          this.httpClientService.post({
+            controller: this.optionals.controller,
+            action: this.optionals.action,
+          }, formData)
             .subscribe(data => {
               console.log("başarılı dosya aktarımı.");
             })
@@ -41,4 +39,12 @@ export class FileUploadComponent {
       }
     }
   }
+}
+export class FileOptionalParameters {
+  controller: string;
+  action: string;
+  queryString: string;
+  explanation: string;
+  accept: string;
+  isAdmin: boolean = false;
 }

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { error, extend } from 'jquery';
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../../../services/admin/alertify.service';
+import { FileOptionalParameters } from '../../../../services/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-create',
@@ -18,7 +19,13 @@ export class CreateComponent extends BaseComponent {
   }
 
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
-
+  @Output() fileForOptionalParameters: Partial<FileOptionalParameters> = {
+    controller: "products",
+    action: "uploadfile",
+    isAdmin: true,
+    explanation: "Görsel Yükleyiniz",
+    accept: ".jpg , .jpeg , .png",
+  }
 
 
   createWButton(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
