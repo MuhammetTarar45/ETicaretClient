@@ -1,7 +1,9 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, inject, Input, Output } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { HttpClientService } from '../common/http-client.service';
 import { HttpHeaders } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { FileUploadDialogComponent } from '../../dialogs/file-upload-dialog/file-upload-dialog.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,34 +12,55 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrl: './file-upload.component.scss'
 })
 export class FileUploadComponent {
-  constructor(private httpClientService: HttpClientService) {
+  constructor(private httpClientService: HttpClientService,
+
+  ) {
 
   }
+  readonly dialog = inject(MatDialog);
+
+
 
   @Input() optionals: Partial<FileOptionalParameters> = new FileOptionalParameters();
   public files: NgxFileDropEntry[] = [];
 
+
+
   public dropped(files: NgxFileDropEntry[]) {
-    this.files = files;
-    for (const droppedFile of files) {
 
-      // Is it a file?
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
+    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
+      width: '350px',
+      data: DeleteState.Yes,
+    });
 
-          const formData = new FormData();
-          formData.append('formFiles', file, file.name);
-          this.httpClientService.post({
-            controller: this.optionals.controller,
-            action: this.optionals.action,
-          }, formData)
-            .subscribe(data => {
-              console.log("başarılı dosya aktarımı.");
-            })
-        });
+    let dialogValue: string;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result === "yes") {
+        this.files = files;
+        for (const droppedFile of files) {
+          debugger;
+          if (droppedFile.fileEntry.isFile) {
+            const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+            fileEntry.file((file: File) => {
+
+              const formData = new FormData();
+              formData.append('formFiles', file, file.name);
+              this.httpClientService.post({
+                controller: this.optionals.controller,
+                action: this.optionals.action,
+              }, formData)
+                .subscribe(data => {
+                  console.log("başarılı dosya aktarımı.");
+                  this.files = [];
+                })
+            });
+          }
+        }
+      } else {
+        this.files = [];
       }
-    }
+    })
   }
 }
 export class FileOptionalParameters {
@@ -47,4 +70,8 @@ export class FileOptionalParameters {
   explanation: string;
   accept: string;
   isAdmin: boolean = false;
+}
+export enum DeleteState {
+  Yes,
+  No
 }

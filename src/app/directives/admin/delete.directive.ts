@@ -4,9 +4,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerNameType } from '../../base/base.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { DialogDeleteComponent } from '../../admin/dialogs/dialog-delete/dialog-delete.component';
+
 import { HttpClientService } from '../../services/common/http-client.service';
 import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../services/admin/alertify.service';
+import { DeleteState, DialogDeleteComponent } from '../../dialogs/dialog-delete/dialog-delete.component';
 declare var $: any;
 
 @Directive({
@@ -38,8 +39,7 @@ export class DeleteDirective {
   @Output() callbackHilmiDeleteSonrasi: EventEmitter<any> = new EventEmitter();
   @HostListener("click", ["$event"])
   onClick(event: Event) {
-    debugger;
-    console.log(this.controllerInput);
+    console.log(this.controllerInput); //? kaldır burayı En son
     if (event.target === this.imgElement)
       this.openDialog('200ms', '200ms', () => {
         this.spinner.show(SpinnerNameType.Work);
@@ -55,9 +55,10 @@ export class DeleteDirective {
       })
   }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, callBackDelete?: () => void): void {
+    debugger;
     const dialogOpen = this.dialog.open(DialogDeleteComponent, {
       width: '250px',
-      data: { confirm: "yes" },
+      data: DeleteState.Yes,
       enterAnimationDuration,
       exitAnimationDuration,
     });

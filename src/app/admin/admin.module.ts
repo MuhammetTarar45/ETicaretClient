@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from './layout/layout.module';
 import { LayoutComponent } from './layout/layout.component';
 import { ComponentsModule } from './components/components.module';
-import { FileUploadModule } from '../services/file-upload/file-upload.module';
+
 
 
 
