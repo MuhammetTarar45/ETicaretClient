@@ -1,9 +1,11 @@
-import { Component, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { HttpClientService } from '../common/http-client.service';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { FileUploadDialogComponent } from '../../dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogParameters, DialogService } from '../common/dialog.service';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-file-upload',
@@ -13,7 +15,7 @@ import { FileUploadDialogComponent } from '../../dialogs/file-upload-dialog/file
 })
 export class FileUploadComponent {
   constructor(private httpClientService: HttpClientService,
-
+    private dialogService: DialogService
   ) {
 
   }
@@ -22,28 +24,21 @@ export class FileUploadComponent {
 
 
   @Input() optionals: Partial<FileOptionalParameters> = new FileOptionalParameters();
+
   public files: NgxFileDropEntry[] = [];
 
 
 
   public dropped(files: NgxFileDropEntry[]) {
-
-    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
-      width: '350px',
+     this.dialogService.openDialog({
+      componentType: FileUploadDialogComponent,
       data: DeleteState.Yes,
-    });
-
-    let dialogValue: string;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result === "yes") {
+      afterClosedCallBack: () => {
         this.files = files;
         for (const droppedFile of files) {
-          debugger;
           if (droppedFile.fileEntry.isFile) {
             const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
             fileEntry.file((file: File) => {
-
               const formData = new FormData();
               formData.append('formFiles', file, file.name);
               this.httpClientService.post({
@@ -51,18 +46,24 @@ export class FileUploadComponent {
                 action: this.optionals.action,
               }, formData)
                 .subscribe(data => {
-                  console.log("başarılı dosya aktarımı.");
+                  console.log("Başarılı dosya aktarımı.");
                   this.files = [];
-                })
+                });
             });
           }
         }
-      } else {
-        this.files = [];
       }
-    })
+    });
   }
 }
+
+
+
+// dialogRef.afterClosed().subscribe(result => {
+//   console.log(result);
+
+
+
 export class FileOptionalParameters {
   controller: string;
   action: string;

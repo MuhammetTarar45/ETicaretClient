@@ -1,7 +1,9 @@
-<h2 mat-dialog-title>Delete</h2>
+<div style="overflow-y: hidden;" class="text-center">
+    <h2 mat-dialog-title class="text-center">Upload</h2>
 
-Silmek İstediğinize Emin Misiniz?
+    <h4 mat-dialog-content>Yüklemek İstediğinize Emin Misiniz?</h4>
 
 
-<button mat-button mat-dialog-close cdkFocusInitial (click)="close('yes')">Ok</button>
-<button mat-button mat-dialog-close>No</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="close()">No</button>
+</div>

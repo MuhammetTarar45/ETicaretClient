@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Directive, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, Output, Renderer2 } from '@angular/core';
-import { ProductService } from '../../services/common/models/product.service';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, inject, Input, Output, Renderer2 } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerNameType } from '../../base/base.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+
 
 import { HttpClientService } from '../../services/common/http-client.service';
 import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../services/admin/alertify.service';
 import { DeleteState, DialogDeleteComponent } from '../../dialogs/dialog-delete/dialog-delete.component';
+import { DialogService } from '../../services/common/dialog.service';
 declare var $: any;
 
 @Directive({
@@ -23,7 +23,8 @@ export class DeleteDirective {
     private _rendered: Renderer2,
     private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private dialogService: DialogService
   ) {
 
 
@@ -37,11 +38,12 @@ export class DeleteDirective {
   @Input() controllerInput: string;
   @Input() incomingId: string;
   @Output() callbackHilmiDeleteSonrasi: EventEmitter<any> = new EventEmitter();
-  @HostListener("click", ["$event"])
-  onClick(event: Event) {
-    console.log(this.controllerInput); //? kaldır burayı En son
-    if (event.target === this.imgElement)
-      this.openDialog('200ms', '200ms', () => {
+  @HostListener("click")
+  onClick() {
+    this.dialogService.openDialog({
+      componentType: DialogDeleteComponent,
+      data: DeleteState.Yes,
+      afterClosedCallBack: () => {
         this.spinner.show(SpinnerNameType.Work);
         this.httpClientService.delete({ controller: this.controllerInput }, this.incomingId).subscribe(data => {
           const tr = this.elementRef.nativeElement.closest("tr");
@@ -52,23 +54,11 @@ export class DeleteDirective {
           })
           $(tr).fadeOut(1200, () => this.callbackHilmiDeleteSonrasi.emit());
         });
-      })
-  }
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, callBackDelete?: () => void): void {
-    debugger;
-    const dialogOpen = this.dialog.open(DialogDeleteComponent, {
-      width: '250px',
-      data: DeleteState.Yes,
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-    dialogOpen.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result) {
-        callBackDelete();
       }
-    })
+    }
+    )
   }
+
   @HostBinding("style.background-color")
   writingColor: string = "green";
 }

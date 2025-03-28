@@ -1,8 +1,10 @@
-<h2 mat-dialog-title>Delete</h2>
-<mat-dialog-content>
-    Silmek İstediğinize Emin Misiniz?
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close cdkFocusInitial (click)="close('yes')">Ok</button>
-    <button mat-button mat-dialog-close>No</button>
-</mat-dialog-actions>
+<div style="overflow-y: hidden;" class="text-center">
+    <h2 mat-dialog-title class="text-center">Delete</h2>
+    <mat-dialog-content>
+        <h4 mat-dialog-content>Silmek İstediğinize Emin Misiniz?</h4>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+        <button mat-button (click)="close()">No</button>
+    </mat-dialog-actions>
+</div>
