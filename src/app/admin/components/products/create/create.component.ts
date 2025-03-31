@@ -19,13 +19,13 @@ export class CreateComponent extends BaseComponent {
   }
 
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
-  @Output() fileForOptionalParameters: Partial<FileOptionalParameters> = {
-    controller: "products",
-    action: "uploadfile",
-    isAdmin: true,
-    explanation: "Görsel Yükleyiniz",
-    accept: ".jpg , .jpeg , .png",
-  }
+  // @Output() fileForOptionalParameters: Partial<FileOptionalParameters> = {
+  //   controller: "products",
+  //   action: "uploadfile",
+  //   isAdmin: true,
+  //   explanation: "Görsel Yükleyiniz",
+  //   accept: ".jpg , .jpeg , .png",
+  // }
 
 
   createWButton(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {

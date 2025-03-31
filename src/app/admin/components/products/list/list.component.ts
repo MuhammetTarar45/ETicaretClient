@@ -6,6 +6,8 @@ import { ProductService } from '../../../../services/common/models/product.servi
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyMessageType, AlertifyService } from '../../../../services/admin/alertify.service';
+import { DialogService } from '../../../../services/common/dialog.service';
+import { SelectProductImageDialogComponent } from '../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
 
 
 @Component({
@@ -15,10 +17,14 @@ import { AlertifyMessageType, AlertifyService } from '../../../../services/admin
   styleUrl: './list.component.scss'
 })
 export class ListComponent extends BaseComponent {
-  constructor(private productService: ProductService, spinnerService: NgxSpinnerService, private alertify: AlertifyService) {
+  constructor(private productService: ProductService,
+    spinnerService: NgxSpinnerService,
+    private alertify: AlertifyService,
+    private dialogService: DialogService
+  ) {
     super(spinnerService)
   }
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'photo', 'edit', 'delete'];
 
   dataSource: MatTableDataSource<List_Product>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,16 +32,7 @@ export class ListComponent extends BaseComponent {
   ngAfterViewInit() {
     this.getProducts();
   }
-
-  // delete(id: string, mouseEvent: MouseEvent) {
-  //   const target = mouseEvent.target as HTMLElement;
-  //   console.log(target);
-  //   const item = target.closest('tr');
-  //   item.remove();
-  //   alert(id);
-  // }
   async pageChanged() {
-
     await this.getProducts();
   }
   getProducts() {
@@ -50,7 +47,7 @@ export class ListComponent extends BaseComponent {
         }
         else {
           this.dataSource = new MatTableDataSource<List_Product>(response.products);
-          this.paginator.length = response  .totalCount;
+          this.paginator.length = response.totalCount;
         }
         this.hideSpinner(SpinnerNameType.Work);
       },
@@ -61,5 +58,11 @@ export class ListComponent extends BaseComponent {
         });
       }
     );
+  }
+  addProductImages(id: string) {
+    this.dialogService.openDialog({
+      componentType: SelectProductImageDialogComponent,
+      data: id,
+    })
   }
 }

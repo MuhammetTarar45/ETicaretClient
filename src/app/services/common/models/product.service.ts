@@ -13,7 +13,7 @@ export class ProductService {
 
   create(product: Create_Product, successCallBack?: any, errorCallBack?: (errormessage: string) => void) {
     this.httpClientService.post({
-      controller: 'products'
+      controller: 'products',
     }, product).subscribe({
       next: result => {
         if (successCallBack) successCallBack(result);

@@ -30,7 +30,7 @@ export class HttpClientService {
     if (requestParameters.fullEndPoint)
       url = requestParameters.fullEndPoint;
     else
-      url = `${this.url(requestParameters)} ${requestParameters.queryStrings ? `?${requestParameters.queryStrings}` : ''}`;
+      url = `${this.url(requestParameters)}${requestParameters.queryStrings ? `?${requestParameters.queryStrings}` : ''}`;
     return this.httpClient.post<T>(url, body, { headers: requestParameters.headers });
   }
 

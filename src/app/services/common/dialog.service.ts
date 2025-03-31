@@ -13,11 +13,10 @@ export class DialogService {
 
   openDialog(dialogParameters: Partial<DialogParameters>) {
     const dialogRef = this.dialog.open(dialogParameters.componentType, {
-      width: '250px',
+      width: '750px',
       data: dialogParameters.data,
     });
     dialogRef.afterClosed().subscribe(result => {
-    //  debugger;
       if (result == dialogParameters.data)
         dialogParameters.afterClosedCallBack(); //callBack func
     })

@@ -34,6 +34,7 @@ export class FileUploadComponent extends BaseComponent {
 
   public dropped(files: NgxFileDropEntry[]) {
 
+
     this.dialogService.openDialog({
       componentType: FileUploadDialogComponent,
       data: DeleteState.Yes,
@@ -41,6 +42,7 @@ export class FileUploadComponent extends BaseComponent {
         this.showSpinner(SpinnerNameType.Work);
         this.files = files;
         for (const droppedFile of files) {
+          
           if (droppedFile.fileEntry.isFile) {
             const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
             fileEntry.file((file: File) => {
@@ -49,6 +51,7 @@ export class FileUploadComponent extends BaseComponent {
               this.httpClientService.post({
                 controller: this.optionals.controller,
                 action: this.optionals.action,
+                queryStrings: this.optionals.queryString
               }, formData)
                 .subscribe(data => {
                   console.log(data);
