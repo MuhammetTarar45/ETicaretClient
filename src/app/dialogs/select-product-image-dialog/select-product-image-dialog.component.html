@@ -1,7 +1,18 @@
 <h2 mat-dialog-title>Product Images</h2>
 <mat-dialog-content class="mat-typography">
     <app-file-upload [optionals]="fileForOptionalParameters"></app-file-upload>
+
+    <!-- Tüm kartları saran bir flex container ekleyin -->
+    <div class="images-container">
+        <mat-card class="product-images-card" *ngFor="let image of images" appearance="outlined">
+            <img mat-card-image class="all-images" [src]="image.path">
+            <mat-card-actions>
+                <button (click)="removeImage(image.id)" mat-button>Delete</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

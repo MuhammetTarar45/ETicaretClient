@@ -7,17 +7,9 @@ ngx-file-drop:hover {
 }
 
 button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
+    background-color: cadetblue;
+    color: springgreen;
+    padding: 8px 18px 8px 18px;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 10px;
-}
-
-button:hover {
-    background-color: #0056b3;
+    margin-left: 5px;
 }

@@ -1,7 +1,11 @@
-import { Component, Inject, Output } from '@angular/core';
+import { Component, Inject, OnInit, Output } from '@angular/core';
 import { BaseDialog } from '../base/base-dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FileOptionalParameters } from '../../services/file-upload/file-upload.component';
+import { ProductService } from '../../services/common/models/product.service';
+import { List_Product_Image } from '../../contracts/list_product_image';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerNameType } from '../../base/base.component';
 
 @Component({
   selector: 'app-select-product-image-dialog',
@@ -9,13 +13,15 @@ import { FileOptionalParameters } from '../../services/file-upload/file-upload.c
   templateUrl: './select-product-image-dialog.component.html',
   styleUrl: './select-product-image-dialog.component.scss'
 })
-export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> {
+export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> implements OnInit {
 
   @Output() fileForOptionalParameters: Partial<FileOptionalParameters>;
 
   constructor(dialogRef:
     MatDialogRef<SelectProductImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,
+    private productService: ProductService,
+    private spinner: NgxSpinnerService
   ) {
 
     super(dialogRef);
@@ -28,11 +34,22 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
       action: `uploadfile`,
       isAdmin: true,
       explanation: "Ürün resmini seçiniz veya buraya sürükleyiniz",
-      accept: ".jpg",
+      accept: ".jpg , .jpeg , .png",
       queryString: `id=${this.data}`
     };
   }
+  images: List_Product_Image[];
+  async ngOnInit() {
+    this.spinner.show(SpinnerNameType.Work);
+    this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide(SpinnerNameType.Work));
+  }
+  async removeImage(imageId: string) {
+    this.spinner.show(SpinnerNameType.Work);
+    await this.productService.deleteImage(this.data as string, imageId, () => this.spinner.hide(SpinnerNameType.Work));
+  }
 }
+
+
 
 export enum SelectProductImageState {
   Close

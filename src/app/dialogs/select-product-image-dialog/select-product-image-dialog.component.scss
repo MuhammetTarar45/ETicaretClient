@@ -1,0 +1,16 @@
+/* Container için flex ayarı */
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    // flex-wrap: wrap; /* Ekran küçükse alt satıra kaydırmak için */
+    gap: 16px;
+}
+
+/* Her bir kart için stil (isteğe bağlı) */
+.product-images-card {
+    width: 30%;
+}
+
+.all-images {
+    height: 13vh;
+}
