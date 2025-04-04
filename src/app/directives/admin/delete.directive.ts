@@ -61,5 +61,5 @@ export class DeleteDirective {
 
   //@HostBinding("style.background-color")
   // writingColor: string = "blue";
- // writingColor2: string = "#2f2f32";
+  // writingColor2: string = "#2f2f32";
 }

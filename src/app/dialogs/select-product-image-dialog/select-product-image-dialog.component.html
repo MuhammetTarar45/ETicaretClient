@@ -7,7 +7,7 @@
         <mat-card class="product-images-card" *ngFor="let image of images" appearance="outlined">
             <img mat-card-image class="all-images" [src]="image.path">
             <mat-card-actions>
-                <button (click)="removeImage(image.id)" mat-button>Delete</button>
+                <button (click)="removeImage(image.id)" (click)="imageClick($event)" mat-button>Delete</button>
             </mat-card-actions>
         </mat-card>
     </div>
