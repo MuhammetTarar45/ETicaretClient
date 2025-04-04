@@ -4,6 +4,7 @@ import { LayoutComponent } from './admin/layout/layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { HomeComponent } from './ui/components/home/home.component';
 import { ErrorComponent } from './ui/components/error/error.component';
+import { RegisterComponent } from './ui/components/register/register.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "baskets", loadChildren: () => import("../app/ui/components/baskets/baskets.module").then(module => module.BasketsModule) },
   { path: "products", loadChildren: () => import("../app/ui/components/products/products.module").then(module => module.ProductsModule) },
-  { path: "**", component: ErrorComponent }
+  { path: "register", loadChildren: () => import("../app/ui/components/register/register.module").then(module => module.RegisterModule) },
+  { path: "**", component: ErrorComponent },
 ];
 
 @NgModule({
