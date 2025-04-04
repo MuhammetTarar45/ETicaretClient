@@ -1,21 +1,71 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <form method="post" class="row p-1">
+        <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)" class="row p-1">
             <div class="col-md-12 mx-auto">
                 <label for="inputNameSurname" class="form-label">*Ad Soyad</label>
-                <input type="email" class="form-control" id="inputNameSurname">
-                <small class="form-text text-danger">Lütfen Ad Soyad Giriniz.</small>
+                <input type="text" formControlName="adSoyad"
+                    [ngClass]="{'is-invalid': (Component['adSoyad'].touched || Component['adSoyad'].dirty) && Component['adSoyad'].errors}"
+                    class="form-control" id="inputNameSurname">
+
+                <small class="form-text text-danger" *ngIf="submitted && Component['adSoyad'].errors?.required">Lütfen Ad
+                    Soyadı Boş Geçmeyiniz!
+                </small>
             </div>
+
             <div class="col-md-12 mx-auto">
-                <label for="inputPassword" class="form-label">*Şifre</label>
-                <input type="password" class="form-control" id="inputPassword">
-                <small class="form-text text-danger">Lütfen Şifrenizi Giriniz.</small>
+                <label for="inputUserName" class="form-label">*Kullanici Adi</label>
+                <input type="text" formControlName="kullaniciAdi"
+                    [ngClass]="{'is-invalid': (Component['kullaniciAdi'].touched || Component['kullaniciAdi'].dirty) && Component['kullaniciAdi'].errors}"
+                    class="form-control" id="inputUserName">
+
+                <small class="form-text text-danger"
+                    *ngIf="submitted && Component['kullaniciAdi'].errors?.required">Lütfen Kullanıcı
+                    Adı Giriniz.
+                </small>
             </div>
+
             <div class="col-md-12 mx-auto">
                 <label for="inputEmail" class="form-label">*Email</label>
-                <input type="email" class="form-control" id="inputEmail">
-                <small class="form-text text-danger">Lütfen E-mail Giriniz.</small>
+                <input type="email" formControlName="email"
+                    [ngClass]="{'is-invalid': (Component['email'].touched || Component['email'].dirty) && Component['email'].errors}"
+                    class="form-control" id="inputEmail">
+
+                <small class="form-text text-danger" *ngIf="submitted && Component['email'].errors?.required">Lütfen
+                    E-mail Giriniz.</small>
+            </div>
+
+            <div class="col-md-12 mx-auto">
+                <label for="inputPassword" class="form-label">*Şifre</label>
+                <input type="password" formControlName="sifre"
+                    [ngClass]="{'is-invalid': (Component['sifre'].touched || Component['sifre'].dirty) && Component['sifre'].errors}"
+                    class="form-control" id="inputPassword">
+
+                <small class="form-text text-danger" *ngIf="submitted && Component['sifre'].errors?.required">Lütfen
+                    Şifrenizi Giriniz.
+                </small>
+            </div>
+
+            <div class="col-md-12 mx-auto">
+                <label for="inputPassword2" class="form-label">*Şifre Tekrar</label>
+                <input type="password" formControlName="sifreTekrar" class="form-control"
+                    [ngClass]="{'is-invalid': (Component['sifreTekrar'].touched || Component['sifreTekrar'].dirty) && Component['sifreTekrar'].errors}">
+
+                <!-- <small class="form-text text-danger"
+                    *ngIf="submitted && Component['sifreTekrar'].errors?.required">Lütfen Şifrenizi Tekrardan
+                    Giriniz.
+                </small> -->
+            </div>
+            <div class="col-md-12 mx-auto mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Bilgilerimi Hatırla
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <button type="submit" class="btn btn-primary">Giriş Yap!</button>
             </div>
             <!-- <div class="col-12">
                 <label for="inputAddress" class="form-label">Address</label>
@@ -25,22 +75,6 @@
                 <label for="inputAddress2" class="form-label">Address 2</label>
                 <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
             </div> -->
-            <div class="col-md-12 mx-auto">
-                <label for="inputCity" class="form-label">*Şehir</label>
-                <input type="text" class="form-control" id="inputCity">
-                <small class="form-text text-danger">Lütfen Şehrinizi Giriniz.</small>
-            </div>
-            <div class="col-md-12 mx-auto mt-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Kabul Et
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-12 mt-2">
-                <button type="submit" class="btn btn-primary">Giriş Yap!</button>
-            </div>
         </form>
     </div>
     <div class="col-md-2"></div>
