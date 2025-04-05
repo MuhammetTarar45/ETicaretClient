@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { List_Product } from '../../../../contracts/list_products';
+import { List_Product } from '../../../../contracts/products/list_products';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';

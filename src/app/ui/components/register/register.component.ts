@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
 import { registerUser } from '../../../entities/registerUser';
+import { UserService } from '../../../services/common/models/user.service';
+import { Create_User } from '../../../contracts/users/create_user';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerNameType } from '../../../base/base.component';
 
 
 @Component({
@@ -12,19 +16,21 @@ import { registerUser } from '../../../entities/registerUser';
 })
 export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
-    private toastr: CustomToastrService
+    private toastr: CustomToastrService,
+    private userService: UserService,
+    private spinner: NgxSpinnerService
   ) {
 
   }
   frm: FormGroup;
   ngOnInit() {
     this.frm = this.formBuilder.group({
-      adSoyad: ["", [
+      nameSurname: ["", [
         Validators.required,
         Validators.maxLength(20),
         Validators.minLength(2)
       ]],
-      kullaniciAdi: ["", [
+      userName: ["", [
         Validators.required,
         Validators.maxLength(23),
         Validators.minLength(2)
@@ -34,10 +40,10 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(250),
         Validators.email
       ]],
-      sifre: ["", [
+      password: ["", [
         Validators.required,
       ]],
-      sifreTekrar: ["", [
+      confirmPassword: ["", [
         Validators.required,
       ]]
     })
@@ -46,10 +52,10 @@ export class RegisterComponent implements OnInit {
     return this.frm.controls;
   }
   submitted: boolean = false;
-  onSubmit(data: registerUser) {
+  async onSubmit(user: registerUser) {
     if (this.frm.invalid) {
       this.submitted = true;
-      if (data.sifre !== data.sifreTekrar) {
+      if (user.password !== user.confirmPassword) {
         this.toastr.message("Şifreler Uyuşmuyor", "HATALI ŞİFRE!", {
           messageType: ToastrMessageType.Error,
           position: ToastrPosition.BottomCenter
@@ -60,9 +66,22 @@ export class RegisterComponent implements OnInit {
       console.log("GEÇERSİZ KULLANICI KAYDI!");
       return;
     }
-    else if (data.sifre === data.sifreTekrar) {
-      console.log("GEÇERLİ KULLANICI KAYDI!");
+    else if (user.password === user.confirmPassword) {
+      this.spinner.show(SpinnerNameType.Work);
       this.submitted = false;
+      const result: Create_User = await this.userService.create(user);
+      if (result.succeeded) {
+        this.toastr.message(result.message, "Başarılı", {
+          messageType: ToastrMessageType.Success,
+          position: ToastrPosition.TopRight
+        });
+      } else {
+        this.toastr.message(result.message, "Başarısız", {
+          messageType: ToastrMessageType.Warning,
+          position: ToastrPosition.TopRight
+        });
+      }
+      this.spinner.hide(SpinnerNameType.Work)
     } else {
       console.log("GEÇERSİZ KULLANICI KAYDI");
       return;

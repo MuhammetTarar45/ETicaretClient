@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
-import { Create_Product } from '../../../../contracts/create_product';
+import { Create_Product } from '../../../../contracts/products/create_product';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error, extend } from 'jquery';
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';

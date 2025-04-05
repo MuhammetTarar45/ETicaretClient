@@ -4,23 +4,24 @@
         <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)" class="row p-1">
             <div class="col-md-12 mx-auto">
                 <label for="inputNameSurname" class="form-label">*Ad Soyad</label>
-                <input type="text" formControlName="adSoyad"
-                    [ngClass]="{'is-invalid': (Component['adSoyad'].touched || Component['adSoyad'].dirty) && Component['adSoyad'].errors}"
+                <input type="text" formControlName="nameSurname"
+                    [ngClass]="{'is-invalid': (Component['nameSurname'].touched || Component['nameSurname'].dirty) && Component['nameSurname'].errors}"
                     class="form-control" id="inputNameSurname">
 
-                <small class="form-text text-danger" *ngIf="submitted && Component['adSoyad'].errors?.required">Lütfen Ad
+                <small class="form-text text-danger"
+                    *ngIf="submitted && Component['nameSurname'].errors?.required">Lütfen Ad
                     Soyadı Boş Geçmeyiniz!
                 </small>
             </div>
 
             <div class="col-md-12 mx-auto">
                 <label for="inputUserName" class="form-label">*Kullanici Adi</label>
-                <input type="text" formControlName="kullaniciAdi"
-                    [ngClass]="{'is-invalid': (Component['kullaniciAdi'].touched || Component['kullaniciAdi'].dirty) && Component['kullaniciAdi'].errors}"
+                <input type="text" formControlName="userName"
+                    [ngClass]="{'is-invalid': (Component['userName'].touched || Component['userName'].dirty) && Component['userName'].errors}"
                     class="form-control" id="inputUserName">
 
-                <small class="form-text text-danger"
-                    *ngIf="submitted && Component['kullaniciAdi'].errors?.required">Lütfen Kullanıcı
+                <small class="form-text text-danger" *ngIf="submitted && Component['userName'].errors?.required">Lütfen
+                    Kullanıcı
                     Adı Giriniz.
                 </small>
             </div>
@@ -37,22 +38,22 @@
 
             <div class="col-md-12 mx-auto">
                 <label for="inputPassword" class="form-label">*Şifre</label>
-                <input type="password" formControlName="sifre"
-                    [ngClass]="{'is-invalid': (Component['sifre'].touched || Component['sifre'].dirty) && Component['sifre'].errors}"
+                <input type="password" formControlName="password"
+                    [ngClass]="{'is-invalid': (Component['password'].touched || Component['password'].dirty) && Component['password'].errors}"
                     class="form-control" id="inputPassword">
 
-                <small class="form-text text-danger" *ngIf="submitted && Component['sifre'].errors?.required">Lütfen
+                <small class="form-text text-danger" *ngIf="submitted && Component['password'].errors?.required">Lütfen
                     Şifrenizi Giriniz.
                 </small>
             </div>
 
             <div class="col-md-12 mx-auto">
                 <label for="inputPassword2" class="form-label">*Şifre Tekrar</label>
-                <input type="password" formControlName="sifreTekrar" class="form-control"
-                    [ngClass]="{'is-invalid': (Component['sifreTekrar'].touched || Component['sifreTekrar'].dirty) && Component['sifreTekrar'].errors}">
+                <input type="password" formControlName="confirmPassword" class="form-control"
+                    [ngClass]="{'is-invalid': (Component['confirmPassword'].touched || Component['confirmPassword'].dirty) && Component['confirmPassword'].errors}">
 
                 <!-- <small class="form-text text-danger"
-                    *ngIf="submitted && Component['sifreTekrar'].errors?.required">Lütfen Şifrenizi Tekrardan
+                    *ngIf="submitted && Component['confirmPassword'].errors?.required">Lütfen Şifrenizi Tekrardan
                     Giriniz.
                 </small> -->
             </div>

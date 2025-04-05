@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Create_Product } from '../../../contracts/create_product';
+import { Create_Product } from '../../../contracts/products/create_product';
 import { ListComponent } from './list/list.component';
 
 @Component({

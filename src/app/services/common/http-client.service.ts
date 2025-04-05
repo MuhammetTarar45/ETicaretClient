@@ -21,7 +21,7 @@ export class HttpClientService {
     if (requestParameters.fullEndPoint)
       url = requestParameters.fullEndPoint;
     else
-      url = `${this.url(requestParameters)}${id ? `/${id}` : ''}${requestParameters.queryStrings ? `?${requestParameters.queryStrings}` : ''}`
+      url = `${this.url(requestParameters)}${id ? `/${id}` : ''}${requestParameters.queryStrings ? `?${requestParameters.queryStrings}` : ''}` //queryStrings'e id=5&page=3&size=15 şeklinde gönderiyoruz
     return this.httpClient.get<T>(url, { headers: requestParameters.headers });
   }
 
@@ -58,7 +58,7 @@ export class RequestParameters {
 
   queryStrings?: string;
 
-  headers?: HttpHeaders
+  headers?: HttpHeaders;
   baseUrl?: string;
   fullEndPoint?: string;
 }
