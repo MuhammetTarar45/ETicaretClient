@@ -4,9 +4,8 @@ import { ProductsModule } from './products/products.module';
 import { HomeModule } from './home/home.module';
 import { BasketsModule } from './baskets/baskets.module';
 import { ErrorComponent } from './error/error.component';
-import { RegisterComponent } from './register/register.component';
 import { RegisterModule } from './register/register.module';
-
+import { LoginModule } from './login/login.module';
 
 
 
@@ -19,7 +18,8 @@ import { RegisterModule } from './register/register.module';
     HomeModule,
     ProductsModule,
     BasketsModule,
-    RegisterModule
+    RegisterModule,
+    LoginModule
   ]
 })
 export class ComponentsModule { }

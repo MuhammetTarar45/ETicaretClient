@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)" class="row p-1">
+
+
+            <div class="col-md-12 mx-auto">
+                <label for="inputuserNameOrEmail" class="form-label">*Kullanici Adi veya Email</label>
+                <input type="text" formControlName="userNameOrEmail"
+                    [ngClass]="{'is-invalid': (Component['userNameOrEmail'].touched || Component['userNameOrEmail'].dirty) && Component['userNameOrEmail'].errors}"
+                    class="form-control" id="inputuserNameOrEmail">
+
+                <small class="form-text text-danger"
+                    *ngIf="submitted && Component['userNameOrEmail'].errors?.required">Lütfen
+                    Kullanıcı
+                    Adı veya Email Giriniz.
+                </small>
+
+                <small class="form-text text-danger"
+                    *ngIf="submitted && Component['userNameOrEmail'].errors?.minlength">Lütfen
+                    Min 2 length olmalı.
+                </small>
+            </div>
+
+
+            <div class="col-md-12 mx-auto">
+                <label for="inputPassword" class="form-label">*Şifre</label>
+                <input type="password" formControlName="password"
+                    [ngClass]="{'is-invalid': (Component['password'].touched || Component['password'].dirty) && Component['password'].errors}"
+                    class="form-control" id="inputPassword">
+
+                <small class="form-text text-danger" *ngIf="submitted && Component['password'].errors?.required">Lütfen
+                    Şifrenizi Giriniz.
+                </small>
+            </div>
+            <div class="col-md-12 mt-2">
+                <button type="submit" class="btn btn-primary">Giriş Yap!</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
