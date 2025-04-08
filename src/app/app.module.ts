@@ -9,7 +9,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { JwtModule } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -23,12 +24,26 @@ import { provideHttpClient } from '@angular/common/http';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"], //Sadece buraya gönder!
+        disallowedRoutes: ["edevlet.com"] //Buraya hiçhiç gönderme demiş ouyoruz
+      }
+    })
   ],
   providers: [
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     { provide: "baseUrl", useValue: 'https://localhost:5001/api' }
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
+
+}
+export function tokenGetter() {
+  return localStorage.getItem('AccessToken')
 }

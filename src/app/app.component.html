@@ -17,13 +17,18 @@
         <li class="nav-item mx-5">
           <a class="navbar-brand" routerLink="baskets">Sepet</a>
         </li>
-        <li class="nav-item mx-5">
+        <li class="nav-item mx-5" *ngIf="!authService.isAuthenticated">
           <a class="navbar-brand" routerLink="register">Kayıt Ol</a>
         </li>
-        <li class="nav-item mx-5">
+        <li class="nav-item mx-5" *ngIf="!authService.isAuthenticated">
           <a class="navbar-brand" routerLink="login">Giriş Yap</a>
         </li>
-        <li class="nav-item mx-5">
+        <li class="nav-item mx-5" *ngIf="authService.isAuthenticated">
+          <a class="navbar-brand text-danger" routerLink="" (click)="signOut()">Çıkış
+            <!--Router Link değerini component'ten alıyor. router.navigate[] şeklinde-->
+            Yap</a>
+        </li>
+        <li class="nav-item mx-5" *ngIf="authService.isAuthenticated">
           <a class="navbar-brand" routerLink="/admin">Admin</a>
         </li>
       </ul>

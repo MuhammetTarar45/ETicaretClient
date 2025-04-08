@@ -24,4 +24,6 @@ import { MatListModule } from '@angular/material/list';
     FooterComponent
   ]
 })
-export class ComponentsModule { }
+export class ComponentsModule {
+
+}

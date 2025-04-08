@@ -29,7 +29,6 @@ export class UserService {
       action: 'login'
     }, user);
     const responseToken: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    debugger;
     //gelen veri {token:{token:.....}} şeklinde o yüzden böyle yaptık!
     const token = responseToken.token as Token;
 
