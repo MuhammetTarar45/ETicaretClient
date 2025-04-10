@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from './services/common/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 declare var $: any;
 

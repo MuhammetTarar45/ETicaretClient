@@ -12,22 +12,23 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const toastr: CustomToastrService = inject(CustomToastrService);
   const spinner: NgxSpinnerService = inject(NgxSpinnerService);
-
+  const authService: AuthService = inject(AuthService);
   /* Dependency Injection End */
   spinner.show(SpinnerNameType.Routing);
-
-
   try {
-    // const token = jwtHelperService.tokenGetter();
-    // const expired = jwtHelperService.isTokenExpired(token.toString());
-    if (_isAuthenticated) { //Değer varsa
+
+    // authService.identityCheck();
+    const token = jwtHelperService.tokenGetter();
+    const expired = jwtHelperService.isTokenExpired(token.toString()); //service'yi kullandık artık buradan almıyoruz.
+
+    if (token && !expired) { //Değer varsa
       spinner.hide(SpinnerNameType.Routing);
       return true;
     } else { //Değer yoksa
-      router.navigate(["login"], { queryParams: { returnUrl: state.url } }); //Gitmek istenilen state.url , 
+      router.navigate(["login"], { queryParams: { returnUrl: state.url } });
       //Geldiğimiz yol route,
       //Gitmek istediğimiz yol state!
-      toastr.message("Oturum Açmanız Gerekiyor", "Yetkisiz Girişim", {
+      toastr.message("Oturum Açmanız Gerekiyor!", "Yetkisiz Girişim", {
         messageType: ToastrMessageType.Info,
         position: ToastrPosition.TopRight
       })
@@ -41,6 +42,9 @@ export const authGuard: CanActivateFn = (route, state) => {
       messageType: ToastrMessageType.Info,
       position: ToastrPosition.TopRight
     })
-    return true;
+    return false;
   }
 };
+// export function isAuth() {
+//   return "";
+// }

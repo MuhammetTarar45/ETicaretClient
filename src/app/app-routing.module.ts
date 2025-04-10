@@ -23,7 +23,7 @@ const routes: Routes = [
         path: "orders", loadChildren: () => import("../app/admin/components/orders/orders.module").then(module => module.OrdersModule),
       },
     ],
-    // canActivate: [authGuard]
+
   },
   { path: "", component: HomeComponent },
   { path: "home", component: HomeComponent },

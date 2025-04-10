@@ -53,6 +53,7 @@ export class DeleteDirective {
             position: AlertifyPosition.TopRight
           })
           $(tr).fadeOut(1200, () => this.callbackHilmiDeleteSonrasi.emit());
+          this.spinner.hide(SpinnerNameType.Work);
         });
       }
     }

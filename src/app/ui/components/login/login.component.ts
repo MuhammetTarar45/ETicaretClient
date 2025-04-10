@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent, SpinnerNameType } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../../../services/common/models/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/common/auth.service';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { HttpClientService } from '../../../services/common/http-client.service';
+import { TokenResponse } from '../../../contracts/token/tokenResponse';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +16,26 @@ import { AuthService } from '../../../services/common/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent extends BaseComponent implements OnInit {
+
+  
+
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private authServer: AuthService
+    private authServer: AuthService,
+    private socialAuthServer: SocialAuthService,
+    private httpClientService: HttpClientService
   ) {
-    super(spinner)
+    super(spinner);
+    socialAuthServer.authState.subscribe(async (user: SocialUser) => {
+      this.showSpinner(SpinnerNameType.Work);
+      await userService.googleLogin(user, () => {
+        this.authServer.identityCheck();
+        this.hideSpinner(SpinnerNameType.Work);
+      })
+    });
   }
   ngOnInit(): void {
     this.frm = this.formBuilder.group({
@@ -62,5 +77,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       });
     }
   }
+
+
   submitted: boolean = false;
 }
