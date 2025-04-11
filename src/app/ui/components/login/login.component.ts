@@ -5,9 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../../../services/common/models/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/common/auth.service';
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClientService } from '../../../services/common/http-client.service';
-import { TokenResponse } from '../../../contracts/token/tokenResponse';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +15,6 @@ import { TokenResponse } from '../../../contracts/token/tokenResponse';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent extends BaseComponent implements OnInit {
-
-  
-
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     spinner: NgxSpinnerService,
@@ -31,11 +27,25 @@ export class LoginComponent extends BaseComponent implements OnInit {
     super(spinner);
     socialAuthServer.authState.subscribe(async (user: SocialUser) => {
       this.showSpinner(SpinnerNameType.Work);
-      await userService.googleLogin(user, () => {
-        this.authServer.identityCheck();
-        this.hideSpinner(SpinnerNameType.Work);
-      })
+      console.log(user);
+
+      switch (user.provider) {
+        case "GOOGLE":
+          await userService.googleLogin(user, () => {
+            this.authServer.identityCheck();
+            this.hideSpinner(SpinnerNameType.Work);
+          })
+          break;
+        case "FACEBOOK":
+          await this.userService.facebookLogin(user, () => {
+            this.authServer.identityCheck();
+            this.hideSpinner(SpinnerNameType.Work);
+          })
+          break;
+      }
     });
+    this.authServer.identityCheck();
+    this.hideSpinner(SpinnerNameType.Work);
   }
   ngOnInit(): void {
     this.frm = this.formBuilder.group({
@@ -77,7 +87,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
       });
     }
   }
-
+  facebookLogin() {
+    this.socialAuthServer.signIn(FacebookLoginProvider.PROVIDER_ID)
+  }
 
   submitted: boolean = false;
 }

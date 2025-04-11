@@ -12,7 +12,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { LoginComponent } from './ui/components/login/login.component';
-import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
@@ -54,6 +54,10 @@ import { ReactiveFormsModule } from '@angular/forms';
               oneTapEnabled: true,
               prompt_parent_id: 'google-login-button'
             })
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider("1375700250520496")
           }
         ],
         onError: err => console.log(err)
