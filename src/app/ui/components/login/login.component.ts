@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/common/auth.service';
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClientService } from '../../../services/common/http-client.service';
+import { UserAuthService } from '../../../services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private router: Router,
     private authServer: AuthService,
     private socialAuthServer: SocialAuthService,
-    private httpClientService: HttpClientService
+    private httpClientService: HttpClientService,
+    private userAuthService: UserAuthService
   ) {
     super(spinner);
     socialAuthServer.authState.subscribe(async (user: SocialUser) => {
@@ -31,13 +33,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       switch (user.provider) {
         case "GOOGLE":
-          await userService.googleLogin(user, () => {
+          await userAuthService.googleLogin(user, () => {
             this.authServer.identityCheck();
             this.hideSpinner(SpinnerNameType.Work);
           })
           break;
         case "FACEBOOK":
-          await this.userService.facebookLogin(user, () => {
+          await this.userAuthService.facebookLogin(user, () => {
             this.authServer.identityCheck();
             this.hideSpinner(SpinnerNameType.Work);
           })
@@ -72,7 +74,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.showSpinner(SpinnerNameType.Work);
       this.submitted = false;
 
-      await this.userService.login(user, () => {
+      await this.userAuthService.login(user, () => {
         this.authServer.identityCheck();
 
         const a = this.activatedRoute.snapshot.queryParamMap.get("returnUrl"); //queryString okurken farklı kod,

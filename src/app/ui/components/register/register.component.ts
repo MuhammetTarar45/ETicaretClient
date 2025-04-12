@@ -83,8 +83,14 @@ export class RegisterComponent implements OnInit {
       }
       this.spinner.hide(SpinnerNameType.Work)
     } else {
+      this.spinner.hide(SpinnerNameType.Work)
       console.log("GEÇERSİZ KULLANICI KAYDI");
       return;
+    }
+    try {
+
+    } catch (error) {
+      this.spinner.hide(SpinnerNameType.Work);
     }
   }
 }
