@@ -25,7 +25,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       spinner.hide(SpinnerNameType.Routing);
       return true;
     } else { //Değer yoksa
-      router.navigate(["login"], { queryParams: { returnUrl: state.url } });
+      router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
       //Geldiğimiz yol route,
       //Gitmek istediğimiz yol state!
       toastr.message("Oturum Açmanız Gerekiyor!", "Yetkisiz Girişim", {
@@ -37,7 +37,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     }
   } catch (error) {
     spinner.hide(SpinnerNameType.Routing);
-    router.navigate(["login"], { queryParams: { returnUrl: state.url } });
+    router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
     toastr.message("Oturum Açmanız Gerekiyor", "Yetkisiz Girişim", {
       messageType: ToastrMessageType.Info,
       position: ToastrPosition.TopRight
