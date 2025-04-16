@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode } 
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../ui/custom-toastr.service';
+import { UserAuthService } from './models/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,22 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
 
   }
   private toastr: CustomToastrService = inject(CustomToastrService);
-
+  private userAuthService: UserAuthService = inject(UserAuthService);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(catchError(error => {
+    return next.handle(req).pipe(catchError( error => {
       switch (error.status) {
         case HttpStatusCode.Unauthorized:
-          this.toastr.message("Yetkisiz Erişim", "401", {
-            messageType: ToastrMessageType.Warning,
-            position: ToastrPosition.BottomCenter
-          })
+
+
+           this.userAuthService.refreshTokenLogin(localStorage.getItem("RefreshToken")).then(data=>{
+            
+           });
+          // this.toastr.message("Yetkisiz Erişim", "401", {
+
+          //   messageType: ToastrMessageType.Warning,
+          //   position: ToastrPosition.BottomCenter
+          // })
           break;
         case HttpStatusCode.NotFound:
           break;

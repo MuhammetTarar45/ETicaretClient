@@ -26,6 +26,7 @@ export class UserAuthService {
     if (token) {
       //console.log(token);
       localStorage.setItem("AccessToken", token.accessToken);
+      localStorage.setItem("RefreshToken", token.refreshToken);
       this.toastrService.message("Kullanıcı Girişi Başarılı", "Başarılı :)", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
@@ -41,19 +42,37 @@ export class UserAuthService {
     successCallBack();
     return token;
   }
+  async refreshTokenLogin(refreshToken: string, callBackFunction?: () => void): Promise<any> {
+    const observable: Observable<any | TokenResponse> = this.httpClientService.post({
+      controller: 'auth',
+      action: 'refreshTokenLogin'
+    }, { refreshToken: refreshToken });
+
+    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if (!!tokenResponse) {
+      localStorage.setItem("AccessToken", tokenResponse.token.accessToken);
+      localStorage.setItem("RefreshToken", tokenResponse.token.refreshToken);
+    }
+
+    callBackFunction();
+  }
   async googleLogin(user: any, callBackFunction?: () => void) {
     const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
       controller: 'auth',
       action: 'google-login'
     }, user);
     const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if (!!tokenResponse)
-      localStorage.setItem("AccessToken", tokenResponse.token.accessToken);
+    if (!!tokenResponse) {
 
-    this.toastrService.message("Google üzerinden giriş başarılı :)", "Giriş Başarılı", {
-      messageType: ToastrMessageType.Success,
-      position: ToastrPosition.TopRight
-    })
+      localStorage.setItem("AccessToken", tokenResponse.token.accessToken);
+      localStorage.setItem("RefreshToken", tokenResponse.token.refreshToken);
+      this.toastrService.message("Google üzerinden giriş başarılı :)", "Giriş Başarılı", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.TopRight
+      })
+    }
+
     callBackFunction();
   }
   async facebookLogin(user: SocialUser, callBackFunction?: () => void) {
@@ -66,6 +85,7 @@ export class UserAuthService {
 
     if (!!tokenResponse) {
       localStorage.setItem("AccessToken", tokenResponse.token.accessToken);
+      localStorage.setItem("RefreshToken", tokenResponse.token.refreshToken);
       this.toastrService.message("Facebook ile giriş başarılı", "Giriş Başarılı", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
