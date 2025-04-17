@@ -18,26 +18,30 @@ export const authGuard: CanActivateFn = (route, state) => {
   try {
 
     // authService.identityCheck();
-    const token = jwtHelperService.tokenGetter();
-    const expired = jwtHelperService.isTokenExpired(token.toString()); //service'yi kullandık artık buradan almıyoruz.
-
-    if (token && !expired) { //Değer varsa
-      spinner.hide(SpinnerNameType.Routing);
-      return true;
-    } else { //Değer yoksa
-      router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
-      //Geldiğimiz yol route,
-      //Gitmek istediğimiz yol state!
+    // const token = jwtHelperService.tokenGetter();
+    // const expired = jwtHelperService.isTokenExpired(token.toString()); //service'yi kullandık artık buradan almıyoruz.
+    debugger;
+    let token: string = localStorage.getItem("AccessToken");
+    let expired: boolean = jwtHelperService.isTokenExpired(token);
+    if (expired) { //Değer varsa
       toastr.message("Oturum Açmanız Gerekiyor!", "Yetkisiz Girişim", {
         messageType: ToastrMessageType.Info,
         position: ToastrPosition.TopRight
       })
       spinner.hide(SpinnerNameType.Routing);
       return false;
+    } else {
+      spinner.hide(SpinnerNameType.Routing);
+      return true;
+      //Değer yoksa
+      // router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
+      //Geldiğimiz yol route,
+      //Gitmek istediğimiz yol state!
+
     }
   } catch (error) {
     spinner.hide(SpinnerNameType.Routing);
-    router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
+    //router.navigate(["/home"], { queryParams: { returnUrl: state.url } });
     toastr.message("Oturum Açmanız Gerekiyor", "Yetkisiz Girişim", {
       messageType: ToastrMessageType.Info,
       position: ToastrPosition.TopRight

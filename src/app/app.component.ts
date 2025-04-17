@@ -21,7 +21,7 @@ export class AppComponent {
   signOut() {
     localStorage.removeItem("AccessToken");
     this.authService.identityCheck();
-    this.router.navigate(["/products"]);
+    this.router.navigate(["home"]);
     this.toastr.message("Oturum Kapatılmıştır", "Çıkış Yapıldı", {
       messageType: ToastrMessageType.Info,
       position: ToastrPosition.TopRight

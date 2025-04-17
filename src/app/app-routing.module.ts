@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: "admin", component: LayoutComponent, children: [
       {
-        path: "", component: DashboardComponent, canActivate: [authGuard]
+        path: "", component: DashboardComponent
       },
       {
         path: "customers", loadChildren: () => import("../app/admin/components/customers/customers.module").then(module => module.CustomersModule), canActivate: [authGuard]

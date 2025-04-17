@@ -12,22 +12,20 @@ export class AuthService {
 
   async identityCheck() {
     try {
-      const token: Promise<string> | string = await this.jwtHelper.tokenGetter();
+      let token: string = localStorage.getItem("AccessToken");
+      let expired: boolean = this.jwtHelper.isTokenExpired(token);
 
-      const expired: boolean = this.jwtHelper.isTokenExpired(token);
-      if (token != null && !expired) {
-        _isAuthenticated = true;
+      if (expired) {
+        _isAuthenticated = false;
 
       } else {
-        _isAuthenticated = false;
+        _isAuthenticated = true;
       }
     } catch (error) {
-      _isAuthenticated = false;
+
     }
 
     return _isAuthenticated;
-    //_isAuthenticated = token != null && !expired; // token null değilse VE expired zamanı geçmemişse token'i ver diyoruz.
-    //Yani Authenticated değerine true diyoruz.
   }
 
   get isAuthenticated(): boolean {

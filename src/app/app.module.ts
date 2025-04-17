@@ -30,7 +30,7 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
     NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter: tokenGetterFunc,
         allowedDomains: ["localhost:5001"], //Sadece buraya gönder!
         disallowedRoutes: ["edevlet.com"] //Buraya hiçhiç gönderme demiş ouyoruz
       }
@@ -73,6 +73,6 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
 export class AppModule {
 
 }
-export function tokenGetter() {
+export function tokenGetterFunc() {
   return localStorage.getItem('AccessToken')
 }

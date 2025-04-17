@@ -42,21 +42,21 @@ export class UserAuthService {
     successCallBack();
     return token;
   }
+
   async refreshTokenLogin(refreshToken: string, callBackFunction?: () => void): Promise<any> {
+
     const observable: Observable<any | TokenResponse> = this.httpClientService.post({
       controller: 'auth',
-      action: 'refreshTokenLogin'
+      action: 'refreshtokenlogin'
     }, { refreshToken: refreshToken });
 
     const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-
-    if (!!tokenResponse) {
+    if (!!tokenResponse.token.refreshToken) {
       localStorage.setItem("AccessToken", tokenResponse.token.accessToken);
       localStorage.setItem("RefreshToken", tokenResponse.token.refreshToken);
     }
-
-    callBackFunction();
   }
+
   async googleLogin(user: any, callBackFunction?: () => void) {
     const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
       controller: 'auth',
@@ -75,6 +75,7 @@ export class UserAuthService {
 
     callBackFunction();
   }
+
   async facebookLogin(user: SocialUser, callBackFunction?: () => void) {
     const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
       controller: 'auth',
