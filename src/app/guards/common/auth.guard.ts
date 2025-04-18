@@ -20,7 +20,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     // authService.identityCheck();
     // const token = jwtHelperService.tokenGetter();
     // const expired = jwtHelperService.isTokenExpired(token.toString()); //service'yi kullandık artık buradan almıyoruz.
-    debugger;
     let token: string = localStorage.getItem("AccessToken");
     let expired: boolean = jwtHelperService.isTokenExpired(token);
     if (expired) { //Değer varsa

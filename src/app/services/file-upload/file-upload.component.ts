@@ -44,7 +44,7 @@ export class FileUploadComponent extends BaseComponent {
             const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
             fileEntry.file((file: File) => {
               const formData = new FormData();
-              formData.append('Upload', file, file.name);
+              formData.append(file.name, file, file.name);
               this.httpClientService.post({
                 controller: this.optionals.controller,
                 action: this.optionals.action,

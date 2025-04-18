@@ -37,7 +37,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
       action: `uploadfile`,
       isAdmin: true,
       explanation: "Ürün resmini seçiniz veya buraya sürükleyiniz",
-      accept: ".jpg , .jpeg , .png",
+      accept: ".jpg, .jpeg, .png",
       queryString: `id=${this.data}`
     };
   }
@@ -52,6 +52,8 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   async ngOnInit() {
     this.spinner.show(SpinnerNameType.Work);
     this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide(SpinnerNameType.Work));
+    console.log(this.images);
+
   }
   async removeImage(imageId: any) {
     this.spinner.show(SpinnerNameType.Work);
