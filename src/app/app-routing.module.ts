@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "baskets", loadChildren: () => import("../app/ui/components/baskets/baskets.module").then(module => module.BasketsModule) },
   { path: "products", loadChildren: () => import("../app/ui/components/products/products.module").then(module => module.ProductsModule) },
+  { path: "products/:pageNo", loadChildren: () => import("../app/ui/components/products/products.module").then(module => module.ProductsModule) },
   { path: "register", loadChildren: () => import("../app/ui/components/register/register.module").then(module => module.RegisterModule) },
   { path: "login", loadChildren: () => import("../app/ui/components/login/login.module").then(module => module.LoginModule) },
   { path: "**", component: ErrorComponent },

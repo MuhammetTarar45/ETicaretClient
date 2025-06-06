@@ -5,4 +5,5 @@ export class List_Product {
     price: number;
     createdDate: Date;
     updatedDate: Date;
+    productImageFiles: any;
 }

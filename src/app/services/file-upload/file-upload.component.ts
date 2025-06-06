@@ -51,8 +51,6 @@ export class FileUploadComponent extends BaseComponent {
                 queryStrings: this.optionals.queryString
               }, formData)
                 .subscribe(data => {
-                  console.log(data);
-                  console.log("Başarılı dosya aktarımı.");
                   this.files = [];
                   this.hideSpinner(SpinnerNameType.Work);
                 });

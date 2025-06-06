@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { AuthService } from './services/common/auth.service';
 import { Router } from '@angular/router';
+import { HttpClientService } from './services/common/http-client.service';
 
 declare var $: any;
 
@@ -14,9 +15,15 @@ declare var $: any;
 export class AppComponent {
   constructor(public authService: AuthService,
     private toastr: CustomToastrService,
-    private router: Router
+    private router: Router,
+    private httpClientService: HttpClientService
   ) {
     authService.identityCheck();
+    this.httpClientService.get({
+      controller: 'baskets'
+    }).subscribe(data => {
+      debugger;
+    })
   }
   signOut() {
     localStorage.removeItem("AccessToken");
@@ -28,5 +35,3 @@ export class AppComponent {
     })
   }
 }
-
-// $.get("https://localhost:5001/api/Products", datas => datas.forEach(data => console.log(data.name)));

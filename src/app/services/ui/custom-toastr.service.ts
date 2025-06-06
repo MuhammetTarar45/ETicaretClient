@@ -10,7 +10,7 @@ export class CustomToastrService {
 
   }
   message(message: string, title: string, options?: Partial<ToastrOptions>) {
-    this.toastr[options?.messageType](message, title, { positionClass: options?.position });
+    this.toastr[options?.messageType](message, title, { positionClass: options?.position});
   }
 }
 

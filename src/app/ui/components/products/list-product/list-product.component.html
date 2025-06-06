@@ -1,0 +1,35 @@
+<div class="d-flex" style="flex-wrap: wrap;">
+    <div class="card" style="width: 18rem; margin: 5px 5px 5px 0px;" *ngFor="let product of productList">
+        <div
+            *ngIf="product.productImageFiles.length >0 && product.productImageFiles[0].storage=='LocalStorage'; then show else hide">
+        </div>
+        <ng-template #show>
+            <img src="{{baseUrl}}{{product.productImageFiles[0]?.path}}/{{product.productImageFiles[0]?.fileName}}"
+                class="card-img-top" style="object-fit: cover; height: 25vh;" alt="...">
+        </ng-template>
+        <ng-template #hide>
+            <img src="{{baseUrl}}/gorselbulunamadi.png" class="card-img-top" style="object-fit: cover; height: 25vh;"
+                alt="...">
+        </ng-template>
+
+        <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">Fiyat :{{product.price | currency :'₺'}} <br>
+                Stok :{{product.stock}}
+            </p>
+            <a href="#" class="btn btn-primary">Sepete Ekle</a>
+        </div>
+    </div>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" routerLinkActive="active"
+                [routerLink]="['/products',pageNoPrevious]">{{pageNoPrevious}}</a>
+        </li>
+        <li class="page-item"><a class="page-link" [routerLink]="['/products',pageNo]"
+                routerLinkActive="active">{{pageNo}}</a></li>
+        <li class="page-item" *ngIf="productList?.length>=this.pageNo"><a class="page-link"
+                [routerLink]="['/products',pageNoAfter]" routerLinkActive="active">{{pageNoAfter}}</a></li>
+    </ul>
+</nav>
