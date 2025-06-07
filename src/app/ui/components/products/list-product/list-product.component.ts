@@ -2,6 +2,8 @@ import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { List_Product } from '../../../../contracts/products/list_products';
 import { ActivatedRoute } from '@angular/router';
+import { BasketService } from '../../../../services/common/models/basket.service';
+import { Create_Basket_Item } from '../../../../contracts/baskets/create_basket_item';
 
 @Component({
   selector: 'app-list-product',
@@ -21,6 +23,9 @@ export class ListProductComponent {
   public baseUrl: any = 'https://localhost:5001/';
   public totalProductCount: number;
   firstPage: boolean;
+
+  private readonly basketService = inject(BasketService);
+
   constructor() {
 
   }
@@ -40,5 +45,11 @@ export class ListProductComponent {
         });
       }
     });
+  }
+
+  addToBasket(productId: string) {
+    let items = new Create_Basket_Item();
+    items.productId = productId;
+    this.basketService.create(items);
   }
 }

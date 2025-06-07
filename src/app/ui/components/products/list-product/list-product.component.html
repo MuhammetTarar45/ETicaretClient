@@ -17,7 +17,7 @@
             <p class="card-text">Fiyat :{{product.price | currency :'₺'}} <br>
                 Stok :{{product.stock}}
             </p>
-            <a href="#" class="btn btn-primary">Sepete Ekle</a>
+            <button class="btn btn-primary" (click)="addToBasket(product.id)">Sepete Ekle</button>
         </div>
     </div>
 </div>

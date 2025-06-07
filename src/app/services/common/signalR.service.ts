@@ -32,7 +32,7 @@ export class SignalRService {
           this.start(hubUrl)
         }, 3000));
     }
-    console.log(this.connection.connectionId);
+    console.log(this.connection?.connectionId ?? '');
   }
 
   invoke(methodName: string, message: any, successCallBack?: (value) => void, errorCallBack?: () => void) {

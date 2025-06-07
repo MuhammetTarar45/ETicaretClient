@@ -1,7 +1,7 @@
 import { NgxSpinnerService } from "ngx-spinner";
 
 export class BaseComponent {
-  constructor(private spinnerService: NgxSpinnerService) {
+  constructor(public spinnerService: NgxSpinnerService) {
   }
   showSpinner(spinnerNameType: SpinnerNameType) {
     this.spinnerService.show(spinnerNameType);

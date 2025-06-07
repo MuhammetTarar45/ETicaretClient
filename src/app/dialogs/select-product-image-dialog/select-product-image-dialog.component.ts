@@ -59,7 +59,6 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     this.spinner.show(SpinnerNameType.Work);
     await this.productService.deleteImage(this.data as string, imageId, () => {
       this.spinner.hide(SpinnerNameType.Work);
-      // this.images = this.images.filter(image => image.id !== imageId); // Güncelleme
       $(this.matCard).fadeOut(700);
     })
   }

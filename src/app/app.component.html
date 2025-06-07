@@ -28,16 +28,26 @@
           <a class="navbar-brand" routerLink="/admin">Admin</a>
         </li>
       </ul>
+      <div class="ms-auto">
+        <div type="button" class="bg-success" style="border-radius: 7px;" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop" (click)="loadComponent()">
+          <img src="images/basket_icon.png" alt="">
+        </div>
+        <!-- <app-baskets></app-baskets> -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <ng-template appDynamicLoadComponent>
 
-      <div class="ms-auto" style="width: 10%;">
-        <button type="button" class="btn btn-success btn-lg" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Sepet
-        </button>
+            </ng-template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  </div>
 </nav>
-
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8"><router-outlet></router-outlet></div>
@@ -58,3 +68,4 @@
   template="<img src='https://media.giphy.com/media/o8igknyuKs6aY/giphy.gif' />"
 >
 </ngx-spinner> -->
+<!-- Modal -->
