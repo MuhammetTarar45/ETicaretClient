@@ -32,7 +32,7 @@ export class BasketService {
     }, basketItems)
 
     await firstValueFrom(observable);
-    successCallBack();
+    successCallBack?.();
   }
 
   async put(basketItems: Update_Basket_Item, successCallBack?: () => void): Promise<void> {
@@ -40,7 +40,7 @@ export class BasketService {
       controller: 'baskets'
     }, basketItems)
     await firstValueFrom(observable);
-    successCallBack();
+    successCallBack?.();
   }
 
   async remove(basketItemId: string, successCallBack?: () => void) {
@@ -49,7 +49,7 @@ export class BasketService {
     }, basketItemId)
 
     await firstValueFrom(observable);
-    successCallBack();
+    successCallBack?.();
   }
 
 }

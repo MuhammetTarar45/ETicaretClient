@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { error } from 'jquery';
 
@@ -9,7 +9,7 @@ import { error } from 'jquery';
 })
 export class SignalRService {
 
-  constructor() { }
+  constructor(@Inject("BaseSignalRUrl") private baseSignalRUrl: string) { }
 
   private _connection: HubConnection;
   get connection(): HubConnection {
@@ -17,22 +17,22 @@ export class SignalRService {
   }
 
 
-  start(hubUrl: string) {
-    if (!this.connection || this.connection?.state === HubConnectionState.Disconnected) {
+  async start(hubUrl: string): Promise<void> {
+    hubUrl = this.baseSignalRUrl + hubUrl;
+    if (!this.connection || this.connection.state === HubConnectionState.Disconnected) {
       const builder: HubConnectionBuilder = new HubConnectionBuilder();
 
       const hubConnection: HubConnection = builder.withUrl(hubUrl).withAutomaticReconnect().build();
 
-      hubConnection.start()
-        .then(() => {
-          console.log("Connected!")
-          this._connection = hubConnection;
-        })
-        .catch(error => setTimeout(() => {
-          this.start(hubUrl)
-        }, 3000));
+      try {
+        await hubConnection.start();
+        this._connection = hubConnection;
+        console.log(hubUrl + "'e Bağlanıldı");
+      } catch (error) {
+        console.error("Bağlantı kurulamadı, tekrar deneniyor...");
+        setTimeout(() => this.start(hubUrl), 3000);
+      }
     }
-    console.log(this.connection?.connectionId ?? '');
   }
 
   invoke(methodName: string, message: any, successCallBack?: (value) => void, errorCallBack?: () => void) {
@@ -41,6 +41,11 @@ export class SignalRService {
       .catch(errorCallBack);
   }
   on(methodName: string, callBack: (...message) => void) {
-    this.connection.on(methodName, callBack);
+    if (!this.connection) {
+      console.warn("SignalR bağlantısı hazır değil, on() iptal edildi.");
+      return;
+    }
+    console.log(`SignalR '${methodName}' fonksiyonu dinleniyor.`);
+    this.connection.on(methodName, callBack)
   }
 }

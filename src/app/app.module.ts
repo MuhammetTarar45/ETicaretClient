@@ -46,7 +46,8 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
     provideHttpClient(
       withInterceptorsFromDi()
     ),
-    { provide: "baseUrl", useValue: 'https://localhost:5001/api' },
+    { provide: "baseUrl", useValue: 'https://localhost:5001/api', multi: true },
+    { provide: 'BaseSignalRUrl', useValue: 'https://localhost:5001/', multi: true },
     {
       provide: "SocialAuthServiceConfig",
       useValue: {

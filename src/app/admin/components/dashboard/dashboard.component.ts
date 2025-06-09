@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SignalRService } from '../../../services/common/signalR.service';
 import { ReceiveFunctions } from '../../../constants/receive-functions';
 import { HubUrls } from '../../../constants/hubUrls';
+import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../../services/admin/alertify.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,15 +16,18 @@ import { HubUrls } from '../../../constants/hubUrls';
 export class DashboardComponent extends BaseComponent {
 
   private signalRService = inject(SignalRService);
+  private readonly alertifyService = inject(AlertifyService);
 
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService);
-    this.signalRService.start(HubUrls.ProductHub) //localhost:5001 
+    // this.signalRService.start(HubUrls.ProductHub) //localhost:5001
+    //  await this.signalRService.start('pro-hub');
+    // this.signalRService.start(HubUrls.OrderHub) //localhost:5001 
   }
-
-  ngOnInit() {
-    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
-      alert(message);
+  async ngOnInit() {
+    await this.signalRService.start(HubUrls.OrderHub);
+    this.signalRService.on('receiveOrderAddedMessage', message => {
+      alert('hii');
     })
   }
 }
