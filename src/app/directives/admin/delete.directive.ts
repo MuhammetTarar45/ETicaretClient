@@ -43,7 +43,7 @@ export class DeleteDirective {
     this.dialogService.openDialog({
       componentType: DialogDeleteComponent,
       data: DeleteState.Yes,
-      afterClosedCallBack: () => {
+      afterClosedSuccessCallBack: () => {
         this.spinner.show(SpinnerNameType.Work);
         this.httpClientService.delete({ controller: this.controllerInput }, this.incomingId).subscribe(data => {
           const tr = this.elementRef.nativeElement.closest("tr");

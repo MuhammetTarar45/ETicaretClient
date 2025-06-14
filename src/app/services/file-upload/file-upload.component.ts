@@ -36,7 +36,7 @@ export class FileUploadComponent extends BaseComponent {
     this.dialogService.openDialog({
       componentType: FileUploadDialogComponent,
       data: DeleteState.Yes,
-      afterClosedCallBack: () => {
+      afterClosedSuccessCallBack: () => {
         this.showSpinner(SpinnerNameType.Work);
         this.files = files;
         for (const droppedFile of files) {

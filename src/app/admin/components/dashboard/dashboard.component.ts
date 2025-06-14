@@ -3,8 +3,8 @@ import { BaseComponent } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SignalRService } from '../../../services/common/signalR.service';
-import { ReceiveFunctions } from '../../../constants/receive-functions';
 import { HubUrls } from '../../../constants/hubUrls';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
 import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../../services/admin/alertify.service';
 
 @Component({
@@ -16,18 +16,23 @@ import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../..
 export class DashboardComponent extends BaseComponent {
 
   private signalRService = inject(SignalRService);
+  private readonly toastrService = inject(CustomToastrService);
   private readonly alertifyService = inject(AlertifyService);
-
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService);
-    // this.signalRService.start(HubUrls.ProductHub) //localhost:5001
-    //  await this.signalRService.start('pro-hub');
-    // this.signalRService.start(HubUrls.OrderHub) //localhost:5001 
   }
-  async ngOnInit() {
-    await this.signalRService.start(HubUrls.OrderHub);
-    this.signalRService.on('receiveOrderAddedMessage', message => {
-      alert('hii');
+  ngOnInit(): void {
+    this.signalRService.on(HubUrls.ProductHub, 'receiveProductAddedMessage', message => {
+      this.alertifyService.message(message, {
+        position: AlertifyPosition.TopLeft,
+        messageType: AlertifyMessageType.Success
+      })
+    })
+    this.signalRService.on(HubUrls.OrderHub, 'receiveOrderAddedMessage', message => {
+      this.toastrService.message(message, 'Başarılı', {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.BottomCenter
+      })
     })
   }
 }

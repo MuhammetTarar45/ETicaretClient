@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-
+<!--Pagination START-->
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item"><a class="page-link" routerLinkActive="active"
@@ -29,7 +29,8 @@
         </li>
         <li class="page-item"><a class="page-link" [routerLink]="['/products',pageNo]"
                 routerLinkActive="active">{{pageNo}}</a></li>
-        <li class="page-item" *ngIf="productList?.length>=this.pageNo"><a class="page-link"
+        <li class="page-item" *ngIf="sizeNo<=productList?.length"><a class="page-link"
                 [routerLink]="['/products',pageNoAfter]" routerLinkActive="active">{{pageNoAfter}}</a></li>
     </ul>
 </nav>
+<!--Pagination END-->

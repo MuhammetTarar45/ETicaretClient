@@ -9,8 +9,14 @@ import { OrderService } from '../../../services/common/order.service';
 import { Create_Order } from '../../../contracts/orders/create_order';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
 import { Router } from '@angular/router';
-
+import { DialogService } from '../../../services/common/dialog.service';
+import { DialogDeleteComponent } from '../../../dialogs/dialog-delete/dialog-delete.component';
+import { Modal } from 'bootstrap';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 declare var $: any;
+// declare var Swal: any;
+
 @Component({
   selector: 'app-baskets',
   standalone: false,
@@ -24,6 +30,13 @@ export class BasketsComponent extends BaseComponent implements OnInit {
   private readonly orderService = inject(OrderService);
   private readonly toastrService = inject(CustomToastrService);
   private readonly router = inject(Router);
+  private readonly dialogService = inject(DialogService);
+
+
+
+
+
+
   constructor(spinnerService: NgxSpinnerService) {
     super(spinnerService)
   }
@@ -49,10 +62,34 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     this.hideSpinner(SpinnerNameType.Work);
   }
 
-  async deleteProduct(basketItemId: string, rowItem: HTMLElement | HTMLInputElement) {
-    this.showSpinner(SpinnerNameType.Work);
-    await this.basketService.remove(basketItemId, () => $(rowItem.closest('tr')).fadeOut(200));
-    this.hideSpinner(SpinnerNameType.Work);
+  deleteProduct(basketItemId: string, rowItem: HTMLElement | HTMLInputElement) {
+
+    // Swal.fire({
+    //   title: 'Emin Misiniz',
+    //   text: "You clicked the button!",
+    //   icon: "success"
+    // })
+    Swal.fire({
+      title: "Good job!",
+      text: "You clicked the button!",
+      icon: "success"
+    });
+    const modalElement = document.getElementById('basketItemModal');
+    const modalInstance = Modal.getInstance(modalElement) || new Modal(modalElement);
+    modalInstance.hide();
+    $('.modal-backdrop').remove();
+
+
+    this.dialogService.openDialog({
+      componentType: DialogDeleteComponent,
+      data: BasketItemDeleteState.Yes,
+      afterClosedSuccessCallBack: async () => {
+        this.showSpinner(SpinnerNameType.Work);
+        await this.basketService.remove(basketItemId, () => $(rowItem.closest('tr')).fadeOut(200));
+        this.hideSpinner(SpinnerNameType.Work);
+      }, afterClosedErrorCallBack: () =>
+        console.log('hi')
+    });
   }
 
   async shoppingComplete() {
@@ -68,4 +105,8 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     })
     this.router.navigate(['/']);
   }
+}
+export enum BasketItemDeleteState {
+  Yes = 'yes',
+  No = 'no'
 }

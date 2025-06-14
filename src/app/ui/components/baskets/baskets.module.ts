@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BasketsComponent } from './baskets.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule.forChild([
       { path: "", component: BasketsComponent }
     ]),
-    CommonModule, FormsModule
+    CommonModule, FormsModule, SweetAlert2Module.forChild()
   ],
   exports: [
     BasketsComponent
