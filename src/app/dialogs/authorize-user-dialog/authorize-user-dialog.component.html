@@ -1,0 +1,21 @@
+<div style="overflow-y: hidden;" class="text-center">
+
+
+    <h2 mat-dialog-title class="text-center">{{data.code}}</h2>
+
+    <h4 mat-dialog-content>Aşağıya Rol Atamak İstediğinize Emin Misiniz?</h4>
+
+    <div matBadge="{{_roles.selectedOptions.selected.length}}" color="primary" class="me-4"></div>
+
+
+    <mat-selection-list #_roles class="mt-4">
+        @for (role of roles?.datas; track role) {
+        <mat-list-option>{{role.name}}</mat-list-option>
+        }
+    </mat-selection-list>
+
+
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial
+        (click)="assignRole(_roles)">Rolleri Ata</button>
+    <button mat-stroked-button (click)="close()">Hayır</button>
+</div>

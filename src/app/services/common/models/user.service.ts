@@ -22,4 +22,49 @@ export class UserService {
     }, user);
     return await firstValueFrom(observable) as Create_User;
   }
+
+  async updatePassword(userId: string, resetToken: string, password: string, successCallBack?: () => void, errorCallBack?: () => void) {
+    const observable = this.httpClientService.post({
+      controller: 'users',
+      action: 'update-password'
+    },
+      {
+        userId: userId,
+        resetToken: resetToken,
+        password: password
+      });
+
+    await firstValueFrom(observable)
+      .then(value => successCallBack())
+      .catch(err => errorCallBack());
+  }
+
+  async getAllUser() {
+    const observable: Observable<any> = this.httpClientService.get({
+      controller: 'users'
+    })
+    return await firstValueFrom(observable);
+  }
+
+  async assignRoleToUser(id: string, roles: string[]) {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: 'users',
+      action: 'assign-role-to-user'
+    }, {
+      userId: id,
+      roles: roles
+    });
+
+    await firstValueFrom(observable);
+  }
+
+
+  async getRolesToUser(userId: string): Promise<{ userRoles: string[] }> {
+    const observable: Observable<{ userRoles: string[] }> = await this.httpClientService.get({
+      controller: 'users',
+      action: 'get-roles-to-user'
+    }, userId);
+
+    return await firstValueFrom(observable);
+  }
 }

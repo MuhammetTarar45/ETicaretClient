@@ -15,28 +15,26 @@ export class DialogService {
 
   openDialog(dialogParameters: Partial<DialogParameters>) {
 
-    const modalElement = document.getElementById('basketItemModal');
-    debugger;
+   // const modalElement = document.getElementById('basketItemModal');
 
-    const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+   // const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
 
-    modalInstance.hide();
+    //modalInstance.hide();
 
     const dialogRef = this.dialog.open(dialogParameters.componentType, {
-
       width: '750px',
       data: dialogParameters.data,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === dialogParameters.data) {
-        dialogParameters.afterClosedSuccessCallBack();
-        modalInstance.show()
+        dialogParameters.afterClosedSuccessCallBack?.();
+      //  modalInstance.show?.()
       } else {
-        dialogParameters.afterClosedErrorCallBack();
-        modalInstance.show()
+        dialogParameters.afterClosedErrorCallBack?.();
+      //  modalInstance.show?.()
       }
 
-      setTimeout(() => modalInstance.show(), 200);
+      //setTimeout(() => modalInstance.show(), 200);
     })
   }
 }
@@ -44,6 +42,6 @@ export class DialogService {
 export class DialogParameters {
   componentType: ComponentType<any>;
   data: any;
-  afterClosedSuccessCallBack: () => void;
+  afterClosedSuccessCallBack?: () => void;
   afterClosedErrorCallBack?: () => void;
 }

@@ -3,6 +3,7 @@
 
  * {
      box-sizing: border-box;
+     border-radius: 2px;
  }
 
  body {
@@ -17,11 +18,11 @@
      border: 1px solid #555;
      background: #eee;
      //overflow-x: hidden;
-     background-color: rgb(51, 5, 43);
+     background-color: rgb(60, 106, 107);
  }
 
  .admin-sidebar {
-     background-color: aqua;
+     background-color: rgb(110, 119, 119);
      max-width: 30%;
      height: 100vh;
      //  display: flex;

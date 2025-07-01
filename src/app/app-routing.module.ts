@@ -22,8 +22,13 @@ const routes: Routes = [
       {
         path: "orders", loadChildren: () => import("../app/admin/components/orders/orders.module").then(module => module.OrdersModule), canActivate: [authGuard]
       },
+
+      { path: 'authorize-menu', loadChildren: () => import("../app/admin/components/authorize-menu/authorize-menu.module").then(module => module.AuthorizeMenuModule) },
+
+      { path: 'roles', loadChildren: () => import("../app/admin/components/role/role.module").then(module => module.RoleModule) },
+      
+      { path: 'users', loadChildren: () => import("../app/admin/components/users/users.module").then(module => module.UsersModule) }
     ],
-    //canActivate: [authGuard]
   },
   { path: "", component: HomeComponent },
   { path: "home", component: HomeComponent },
@@ -32,7 +37,17 @@ const routes: Routes = [
   { path: "products/:pageNo", loadChildren: () => import("../app/ui/components/products/products.module").then(module => module.ProductsModule) },
   { path: "register", loadChildren: () => import("../app/ui/components/register/register.module").then(module => module.RegisterModule) },
   { path: "login", loadChildren: () => import("../app/ui/components/login/login.module").then(module => module.LoginModule) },
-  { path: "**", component: ErrorComponent },
+  { path: 'password-reset', loadChildren: () => import('../app/ui/components/password-reset/password-reset.module').then(module => module.PasswordResetModule) },
+  { path: 'update-password/:userId/:resetToken', loadChildren: () => import('../app/ui/components/update-password/update-password.module').then(module => module.UpdatePasswordModule) },
+
+
+
+
+
+
+
+
+  { path: "**", component: ErrorComponent }
 ];
 
 @NgModule({

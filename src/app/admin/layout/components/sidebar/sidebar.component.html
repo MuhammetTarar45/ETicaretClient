@@ -1,4 +1,3 @@
-
 <mat-list role="list">
         <mat-list-item role="listitem"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
                         routerLink="/admin">Dashboard</a></mat-list-item>
@@ -11,7 +10,24 @@
 
         <mat-list-item role="listitem"><a routerLinkActive="active-link" routerLink="orders">Orders</a></mat-list-item>
 
+        <mat-list-item role="authorize-menu"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+                        routerLink="authorize-menu">Yetkilendirme</a></mat-list-item>
+
+        <mat-list-item role="roles"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+                        routerLink="roles">Roller</a></mat-list-item>
+
+        <mat-list-item role="users"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
+                        routerLink="users">Kullanıcılar</a></mat-list-item>
+
+
+
+
+
+
+
         <mat-list-item role="listitem"><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active-link"
                         routerLink="">Siteyi
                         Gör</a></mat-list-item>
+
+
 </mat-list>

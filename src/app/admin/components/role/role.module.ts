@@ -1,0 +1,38 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RoleComponent } from './role.component';
+import { RouterModule } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { FileUploadModule } from '../../../services/file-upload/file-upload.module';
+import { DialogModule } from '@angular/cdk/dialog';
+import { DeleteDirectiveModule } from '../../../directives/admin/delete-directive.module';
+import { CreateComponent } from './create/create.component';
+import { ListComponent } from './list/list.component';
+
+
+@NgModule({
+  declarations: [
+    RoleComponent,
+    ListComponent,
+    CreateComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      { path: '', component: RoleComponent }
+    ]),
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule, MatPaginator, MatPaginatorModule,
+    FileUploadModule,
+    DialogModule, DeleteDirectiveModule
+  ]
+})
+export class RoleModule { }

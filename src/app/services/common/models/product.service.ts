@@ -67,7 +67,7 @@ export class ProductService {
 
         },
         complete() {
-          
+
         },
       }
     );
@@ -82,6 +82,7 @@ export class ProductService {
     successCallBack();
     return images;
   }
+
   async deleteImage(id: string, imageId: string, successCallBack: () => void) {
     const deleteObservable = this.httpClientService.delete({
       controller: 'products',
@@ -91,4 +92,17 @@ export class ProductService {
     await firstValueFrom(deleteObservable);
     successCallBack();
   }
+
+  async updateStockQrCodeToProduct(productId: string, stock: number, successCallBack?: () => void, errorCallBack?: () => void) {
+    const observable = this.httpClientService.put({
+      controller: 'products',
+      action: 'qrcode',
+    }, {
+      productId: productId,
+      stock: stock
+    })
+
+    return firstValueFrom(observable);
+  }
+
 }

@@ -1,0 +1,9 @@
+<mat-drawer-container class="role-create-container">
+    <mat-drawer mode="side" class="left-content" opened>
+        <app-create (createdRole)="lastRoleList($event)"></app-create>
+    </mat-drawer>
+    <mat-drawer-content>
+        <app-list updateData="updateTable">
+        </app-list>
+    </mat-drawer-content>
+</mat-drawer-container>

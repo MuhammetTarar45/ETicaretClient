@@ -1,0 +1,17 @@
+<div style="overflow-y:hidden;" class="text-center">
+
+    <h4 class="ms-1">Stock Bilgisi Güncelle</h4>
+
+    <input type="number" style="border-radius: 7px; width: 200px;" class="ms-1 custom-input" #txtStock>
+
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <ngx-scanner-qrcode #scanner="scanner" (event)="qrCodeEvent($event)"></ngx-scanner-qrcode>
+
+    <button mat-button class="d-flex ms-auto p-3 w-100" mat-dialog-close id="btnClose">Kapat</button>
+    <button mat-button (click)="restartScanner()">Yeniden Tara</button>
+
+</div>

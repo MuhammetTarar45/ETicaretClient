@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { Create_Product } from '../../../../contracts/products/create_product';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { error, extend } from 'jquery';
 import { BaseComponent, SpinnerNameType } from '../../../../base/base.component';
 import { AlertifyMessageType, AlertifyPosition, AlertifyService } from '../../../../services/admin/alertify.service';
-import { FileOptionalParameters } from '../../../../services/file-upload/file-upload.component';
+import { DialogService } from '../../../../services/common/dialog.service';
+import { QrcodeReadingDialogComponent } from '../../../../dialogs/qrcode-reading-dialog/qrcode-reading-dialog.component';
+
 
 @Component({
   selector: 'app-create',
@@ -19,6 +20,7 @@ export class CreateComponent extends BaseComponent {
   }
 
   @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
+  private readonly dialogService = inject(DialogService);
   // @Output() fileForOptionalParameters: Partial<FileOptionalParameters> = {
   //   controller: "products",
   //   action: "uploadfile",
@@ -49,4 +51,18 @@ export class CreateComponent extends BaseComponent {
     }
     );
   }
+
+  showProductQrCodeReading() {
+    this.dialogService.openDialog({
+      componentType: QrcodeReadingDialogComponent,
+      data: 'Yes',
+      afterClosedSuccessCallBack: () => {
+
+      }, afterClosedErrorCallBack: () => {
+
+      }
+    })
+  }
+
+
 } 

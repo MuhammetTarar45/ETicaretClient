@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyMessageType, AlertifyService } from '../../../../services/admin/alertify.service';
 import { DialogService } from '../../../../services/common/dialog.service';
 import { SelectProductImageDialogComponent } from '../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
+import { QrcodeDialogComponent } from '../../../../dialogs/qrcode-dialog/qrcode-dialog.component';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ListComponent extends BaseComponent {
   ) {
     super(spinnerService)
   }
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'photo', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'photo', 'qrCode', 'edit', 'delete'];
 
   dataSource: MatTableDataSource<List_Product>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,5 +64,19 @@ export class ListComponent extends BaseComponent {
       componentType: SelectProductImageDialogComponent,
       data: id,
     })
+  }
+
+  showQRCode(productId: string) {
+    this.showSpinner(SpinnerNameType.Work);
+    this.dialogService.openDialog({
+      componentType: QrcodeDialogComponent,
+      data: productId,
+      afterClosedSuccessCallBack: () => {
+      },
+      afterClosedErrorCallBack: () => {
+
+      }
+    })
+    this.hideSpinner(SpinnerNameType.Work)
   }
 }

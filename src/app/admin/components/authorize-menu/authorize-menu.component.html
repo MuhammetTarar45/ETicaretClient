@@ -1,0 +1,18 @@
+<mat-tree *ngIf="dataSource" #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button mat-stroked-button color="primary" (click)="assignRole(node.code,node.definition,node.httpType)">Rol Ata</button>
+
+        {{node.definition}}
+        <!-- {{node.code}} -->
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
+        [cdkTreeNodeTypeaheadLabel]="node.definition">
+        <button class="btn btn-outline-primary btn-sm" matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.definition">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        {{node.name}}
+    </mat-tree-node>
+</mat-tree>

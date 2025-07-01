@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { DialogService } from '../../../services/common/dialog.service';
 import { DialogDeleteComponent } from '../../../dialogs/dialog-delete/dialog-delete.component';
 import { Modal } from 'bootstrap';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 declare var $: any;
 // declare var Swal: any;

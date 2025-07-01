@@ -94,4 +94,29 @@ export class UserAuthService {
     }
     callBackFunction();
   }
+
+  async passwordReset(email: string, successCallBack?: () => void, errorCallBack?: () => void) {
+    const observable = this.httpClientService.post({
+      controller: 'auth',
+      action: 'password-reset'
+    }, { email: email })
+
+    await firstValueFrom(observable).then(
+      value => successCallBack(),
+      error => errorCallBack());
+  }
+
+  async verifyResetToken(resetToken: string, userId: string, successCallBack?: () => void) {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: 'auth',
+      action: 'verify-reset-token',
+    }, {
+      resetToken: resetToken,
+      userId: userId
+    });
+    const response = await firstValueFrom(observable);
+    if (response.state === true) {
+      successCallBack();
+    }
+  }
 }

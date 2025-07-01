@@ -1,0 +1,19 @@
+<table class="table table-light text-center">
+    <thead>
+        <tr class="table-info">
+            <th>Ad Soyad</th>
+            <th>E-mail</th>
+            <th>UserName</th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.nameSurname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.userName }}</td>
+            <td><button class="btn btn-outline-info" (click)="assignRole(user.id)">Rol Ata</button></td>
+        </tr>
+    </tbody>
+</table>

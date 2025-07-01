@@ -1,0 +1,10 @@
+.custom-input {
+    border-color: pink;
+}
+
+.custom-input:focus {
+    border-color: rgb(233, 141, 187);
+    border: none;
+    border-bottom: 3px solid rgb(233, 141, 187);
+    outline: none;
+}
